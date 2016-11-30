@@ -1,0 +1,9 @@
+blog:
+    resource: "@BlogBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+feed:
+    resource: "@FeedBundle/Controller/"
+    type:     annotation
+    prefix:   /feed

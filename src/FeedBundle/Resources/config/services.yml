@@ -1,0 +1,4 @@
+services:
+#    feed.example:
+#        class: FeedBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
