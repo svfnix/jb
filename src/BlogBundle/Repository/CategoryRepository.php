@@ -10,4 +10,5 @@ namespace BlogBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

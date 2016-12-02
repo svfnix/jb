@@ -7,6 +7,7 @@ use BlogBundle\Entity\Tag;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use EntityWrapper;
 
 /**
  * article
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="BlogBundle\Repository\ArticleRepository")
  */
-class Article
+class Article extends EntityWrapper
 {
     /**
      * @var int
@@ -184,7 +185,7 @@ class Article
      */
     public function setSlug($slug)
     {
-        $this->slug = $slug;
+        $this->slug = $this->getSlug($slug);
 
         return $this;
     }
