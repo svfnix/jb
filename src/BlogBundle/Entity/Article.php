@@ -4,10 +4,10 @@ namespace BlogBundle\Entity;
 
 use BlogBundle\Entity\Category;
 use BlogBundle\Entity\Tag;
+use BlogBundle\Wrapper\EntityWrapper;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use EntityWrapper;
 
 /**
  * article
@@ -185,7 +185,7 @@ class Article extends EntityWrapper
      */
     public function setSlug($slug)
     {
-        $this->slug = $this->getSlug($slug);
+        $this->slug = $this->slug($slug);
 
         return $this;
     }

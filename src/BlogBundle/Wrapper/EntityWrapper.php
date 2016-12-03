@@ -1,5 +1,7 @@
 <?php
 
+namespace BlogBundle\Wrapper;
+
 /**
  * Created by PhpStorm.
  * User: svf
@@ -8,7 +10,7 @@
  */
 class EntityWrapper
 {
-    function getSlug($str){
+    function slug($str){
         return $str;
     }
 }

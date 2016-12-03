@@ -3,9 +3,9 @@
 namespace BlogBundle\Entity;
 
 use BlogBundle\Entity\Article;
+use BlogBundle\Wrapper\EntityWrapper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use EntityWrapper;
 
 /**
  * Category
@@ -94,7 +94,7 @@ class Category extends EntityWrapper
      */
     public function setSlug($slug)
     {
-        $this->slug = $this->getSlug($slug);
+        $this->slug = $this->slug($slug);
 
         return $this;
     }
