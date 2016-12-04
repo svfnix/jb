@@ -1,13 +1,299 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<!--[if IE 8]> <html class="ie ie8" dir="rtl" lang="fa-IR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 9]> <html class="ie ie9" dir="rtl" lang="fa-IR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 9]><!--> <html dir="rtl" lang="fa-IR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"> <!--<![endif]-->
+<head>
+
+    <meta charset="UTF-8" />
+    <title>{{ block('title') }}</title>
+    <meta name="description" content="{{ block('description') }}"/>
+
+    <link rel="shortcut icon" href="http://{{ domain }}/favicon.ico" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="{{ google_verification }}" />
+
+    <meta property="og:locale" content="fa_IR"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="{{ block('permalink') }}"/>
+    <meta property="og:title" content="{{ block('title') }}"/>
+    <meta property="og:description" content="{{ block('description') }}"/>
+
+    <meta property="article:published_time" content="{{ block('content_publish_date') }}"/>
+    <meta property="article:modified_time" content="{{ block('content_modification_date') }}"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="{{ block('title') }}"/>
+    <meta name="twitter:description" content="{{ block('description') }}"/>
+    <meta name="twitter:url" content="{{ block('permalink') }}"/>
+
+    <link rel="alternate" type="application/rss+xml" title="خبری خوراک" href="http://{{ domain }}/feed/" />
+
+    <link rel="stylesheet" id="theme-css" href="http://{{ domain }}/theme/css/theme.css" type="text/css" media="all" />
+    <link rel="stylesheet" id="theme-responsive-css" href="http://{{ domain }}/theme/css/theme-responsive.css" type="text/css" media="all" />
+    <link rel="stylesheet" id="pretty-photo-css" href="http://{{ domain }}/theme/css/prettyPhoto.css" type="text/css" media="all" />
+    <link rel="stylesheet" id="font-awesome-css" href="http://{{ domain }}/theme/css/fontawesome/css/font-awesome.min.css?ver=2.4.1" type="text/css" media="all" />
+    <link rel="stylesheet" id="theme-skin-css" href="http://{{ domain }}/theme/css/skin-light.css" type="text/css" media="all" />
+    <link rel="stylesheet" id="theme-update-css" href="http://{{ domain }}/theme/css/update.css" type="text/css" media="screen" />
+
+    <script type="text/javascript" src="http://{{ domain }}/theme/js/jquery.js?ver=1.12.4"></script>
+    <script type="text/javascript" src="http://{{ domain }}/theme/js/jquery-migrate.min.js?ver=1.4.1"></script>
+    <script type="text/javascript" src="http://{{ domain }}/theme/js/jquery.prettyPhoto.js?ver=4.6.1"></script>
+
+    <link rel="canonical" href="{{ block('permalink') }}" />
+    <link rel="shortlink" href="{{ block('permalink') }}" />
+
+    <link rel="icon" href="http://{{ domain }}/theme/icons/icon-32x32.jpg" sizes="32x32" />
+    <link rel="icon" href="http://{{ domain }}/theme/icons/icon-192x192.jpg" sizes="192x192" />
+    <link rel="apple-touch-icon-precomposed" href="http://{{ domain }}/theme/icons/icon-180x180.jpg" />
+    <meta name="msapplication-TileImage" content="http://{{ domain }}/theme/icons/icon-270x270.jpg" />
+
+    <meta name="generator" content="Symax 4.6.1" />
+
+    <!--[if lt IE 9]>
+    <script src="http://{{ domain }}/theme/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+</head>
+
+<body class="rtl home page page-id-425 page-template page-template-page-blocks page-template-page-blocks-php logged-in admin-bar no-customize-support page-builder right-sidebar full">
+    <div class="main-wrap">
+        <div class="top-bar">
+            <div class="wrap">
+                <section class="top-bar-content">
+
+                    <div class="trending-ticker">
+                        <span class="heading">تازه ها :</span>
+                        <ul>
+                        {% for article in theme.latest_articles %}
+                            <li><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="search">
+                        <form role="search" action="http://invaroonvar.com/" method="get">
+                            <input type="text" name="s" class="query" value="" placeholder="جستجو..." />
+                            <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div> <!-- .search -->
+
+                    <div class="textwidget">
+                        <ul class="social-icons cf">
+                            <li><a rel="nofollow" href="https://twitter.com/home?status={{ block('permalink') }}" class="icon fa fa-twitter" title="به اشتراک گذاری در توییتر"><span class="visuallyhidden">توییتر</span></a></li>
+                            <li><a rel="nofollow" href="https://www.facebook.com/sharer/sharer.php?u={{ block('permalink') }}" class="icon fa fa-facebook" title="به اشتراک گذاری در فیس بوک"><span class="visuallyhidden">فیس بوک</span></a></li>
+                            <li><a rel="nofollow" href="https://www.linkedin.com/shareArticle?mini=true&url={{ block('permalink') }}" class="icon fa fa-linkedin" title="به اشتراک گذاری در لینکدین"><span class="visuallyhidden">لینکدین</span></a></li>
+                            <li><a rel="nofollow" href="https://plus.google.com/share?url={{ block('permalink') }}" class="icon fa fa-google-plus" title="به اشتراک گذاری در گوگل پلاس"><span class="visuallyhidden">گوگل پلاس</span></a></li>
+                        </ul>
+                    </div>
+
+                </section>
+            </div>
+
+        </div>
+
+
+        <div id="main-head" class="main-head">
+            <div class="wrap">
+
+                <header>
+                    <div class="title">
+                        <a href="http://invaroonvar.com/" title="{{ site_title }}" rel="home">
+                            <span class="main-color">{{ site_name }}</span>
+                        </a>
+                    </div>
+                    <div class="right">
+                        <div class="adwrap-widget">
+                            <img src="http://theme-sphere.com/smart-mag/wp-content/uploads/2014/01/ad-block.png" alt="Leaderboard Ad" />
+                        </div>
+                    </div>
+                </header>
+
+                <nav class="navigation cf" data-sticky-nav="1" data-sticky-logo="1">
+                    <div class="mobile" data-type="off-canvas" data-search="1">
+                        <a href="#" class="selected">
+                            <span class="text">ناوبری</span>
+                            <span class="current"></span>
+                            <i class="hamburger fa fa-bars"></i>
+                        </a>
+                    </div>
+                    <div class="menu-main-menu-container">
+                        <ul id="menu-main-menu" class="menu">
+
+                            <li class="sticky-logo"><a href="http://{{ domain }}/"><span class="main-color">{{ site_name }}</span></a></li>
+
+                            <li id="menu-item-2151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2151"><a href="#">دسته بندی موضوعی</a><ul class="mega-menu links row">
+                                    <li id="menu-item-2639" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-cat-208 menu-item-2639"><a href="http://invaroonvar.com/category/%d8%b1%d8%a7%db%8c%d8%a7%d9%86%d9%87-%d9%85%d9%88%d8%a8%d8%a7%db%8c%d9%84/">سخت افزار و نرم افزار</a>
+                                        <ul class="sub-menu">
+                                            <li id="menu-item-2646" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2646"><a href="/tag/کروم%20بوک/">کروم بوک</a></li>
+                                            <li id="menu-item-2647" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2647"><a href="/tag/مک%20بوک/">مک بوک</a></li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-2637" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-cat-1 menu-item-2637"><a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/">تازه های فن آوری</a>
+                                        <ul class="sub-menu">
+                                            <li id="menu-item-2648" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2648"><a href="/tag/گجت/">گجت ها</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            {% for category in theme.categories %}
+                            <li id="menu-item-2624" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-208 menu-item-2624"><a href="{{ path('category_url', {'slug': category.slug}) }}">{{ category.title }}</a>
+                                {{ render(controller("BlogBundle:Default:__categoryMegaPanel", { 'category' : category })) }}
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="wrap"></div>
+
+        <div class="main-featured">
+            <div class="wrap cf">
+                <div class="row">
+                    <div class="slider frame flexslider col-8" data-animation-speed="600" data-animation="fade" data-slide-delay="5000">
+                        <ul class="slides">
+                            <li>
+                                <a href="http://invaroonvar.com/%d8%a8%d8%a7-%d8%ba%db%8c%d8%b1-%d9%85%d9%86%d8%aa%d8%b8%d8%b1%d9%87%e2%80%8c%d8%aa%d8%b1%db%8c%d9%86-%d9%85%d9%86%d8%a7%d8%a8%d8%b9-%d8%a7%d9%86%d8%b1%da%98%db%8c%e2%80%8c-%d9%87%d8%a7%db%8c-%d8%aa/" class="image-link"><img width="620" height="330" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499910-Energy.jpg" class="attachment-main-slider size-main-slider wp-post-image" alt="با غیر منتظره‌ترین منابع انرژی‌ های تجدیدپذیر آشنا شوید" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499910-Energy.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499910-Energy-300x160.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499910-Energy-300x160@2x.jpg 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
+                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
+                                <div class="caption">
+                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۴۲ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
+                                    <h3><a href="http://invaroonvar.com/%d8%a8%d8%a7-%d8%ba%db%8c%d8%b1-%d9%85%d9%86%d8%aa%d8%b8%d8%b1%d9%87%e2%80%8c%d8%aa%d8%b1%db%8c%d9%86-%d9%85%d9%86%d8%a7%d8%a8%d8%b9-%d8%a7%d9%86%d8%b1%da%98%db%8c%e2%80%8c-%d9%87%d8%a7%db%8c-%d8%aa/" title="با غیر منتظره‌ترین منابع انرژی‌ های تجدیدپذیر آشنا شوید">با غیر منتظره‌ترین منابع انرژی‌ های تجدیدپذیر آشنا شوید</a></h3>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="http://invaroonvar.com/%d9%be%da%af%d8%a7%d8%aa%d8%b1%d9%88%d9%86-%d8%a2%d8%b2%d9%85%d8%a7%db%8c%d8%b4%e2%80%8c%d9%87%d8%a7%db%8c-%d8%a7%d9%88%d9%84%db%8c%d9%87-%d8%a8%d8%b1%d8%a7%db%8c-%d8%b3%d8%a7%d8%ae%d8%aa-%d8%b3%d8%b1/" class="image-link"><img width="620" height="329" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy.jpg" class="attachment-main-slider size-main-slider wp-post-image" alt="پگاترون آزمایش‌های اولیه برای ساخت سرفیس فون را آغاز کرده است" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy-300x159.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy-351x185.jpg 351w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy-300x159@2x.jpg 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
+                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
+                                <div class="caption">
+                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۳۸ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
+                                    <h3><a href="http://invaroonvar.com/%d9%be%da%af%d8%a7%d8%aa%d8%b1%d9%88%d9%86-%d8%a2%d8%b2%d9%85%d8%a7%db%8c%d8%b4%e2%80%8c%d9%87%d8%a7%db%8c-%d8%a7%d9%88%d9%84%db%8c%d9%87-%d8%a8%d8%b1%d8%a7%db%8c-%d8%b3%d8%a7%d8%ae%d8%aa-%d8%b3%d8%b1/" title="پگاترون آزمایش‌های اولیه برای ساخت سرفیس فون را آغاز کرده است">پگاترون آزمایش‌های اولیه برای ساخت سرفیس فون را آغاز کرده است</a></h3>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="http://invaroonvar.com/%d8%af%d8%a7%d9%86%d9%84%d9%88%d8%af-%da%a9%d9%86%db%8c%d8%af-%d8%a8%d9%87%d8%aa%d8%b1%db%8c%d9%86-%d8%a8%d8%b1%d9%86%d8%a7%d9%85%d9%87-%d9%87%d8%a7%db%8c-%d9%85%d9%88%d8%a8%d8%a7%db%8c%d9%84%db%8c/" class="image-link"><img width="620" height="328" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header.jpg" class="attachment-main-slider size-main-slider wp-post-image" alt="دانلود کنید: بهترین برنامه های موبایلی جدید اندروید و آی او اس (۲ الی ۹ آذرماه)" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header-300x159.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header-351x185.jpg 351w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header-300x159@2x.jpg 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
+                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
+                                <div class="caption">
+                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۳۳ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
+                                    <h3><a href="http://invaroonvar.com/%d8%af%d8%a7%d9%86%d9%84%d9%88%d8%af-%da%a9%d9%86%db%8c%d8%af-%d8%a8%d9%87%d8%aa%d8%b1%db%8c%d9%86-%d8%a8%d8%b1%d9%86%d8%a7%d9%85%d9%87-%d9%87%d8%a7%db%8c-%d9%85%d9%88%d8%a8%d8%a7%db%8c%d9%84%db%8c/" title="دانلود کنید: بهترین برنامه های موبایلی جدید اندروید و آی او اس (۲ الی ۹ آذرماه)">دانلود کنید: بهترین برنامه های موبایلی جدید اندروید و آی او اس (۲ الی ۹ آذرماه)</a></h3>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="http://invaroonvar.com/%d8%b1%d8%a8%d8%a7%d8%aa%e2%80%8c%d9%87%d8%a7-%d8%a7%d8%b2-%d8%a7%db%8c%d9%86-%d9%be%d8%b3-%d9%82%d8%a7%d8%af%d8%b1-%d8%a8%d9%87-%d8%b1%d9%88%db%8c%d8%a7%d9%be%d8%b1%d8%af%d8%a7%d8%b2%db%8c-%d8%ae/" class="image-link"><img width="620" height="330" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499895-brain-plug-796x398.png" class="attachment-main-slider size-main-slider wp-post-image" alt="ربات‌ها از این پس قادر به رویاپردازی خواهند بود؛ نزدیک شدن هوش مصنوعی به تصور حمله به انسان" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499895-brain-plug-796x398.png 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499895-brain-plug-796x398-300x160.png 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499895-brain-plug-796x398-300x160@2x.png 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
+                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
+                                <div class="caption">
+                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۲۸ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
+                                    <h3><a href="http://invaroonvar.com/%d8%b1%d8%a8%d8%a7%d8%aa%e2%80%8c%d9%87%d8%a7-%d8%a7%d8%b2-%d8%a7%db%8c%d9%86-%d9%be%d8%b3-%d9%82%d8%a7%d8%af%d8%b1-%d8%a8%d9%87-%d8%b1%d9%88%db%8c%d8%a7%d9%be%d8%b1%d8%af%d8%a7%d8%b2%db%8c-%d8%ae/" title="ربات‌ها از این پس قادر به رویاپردازی خواهند بود؛ نزدیک شدن هوش مصنوعی به تصور حمله به انسان">ربات‌ها از این پس قادر به رویاپردازی خواهند بود؛ نزدیک شدن هوش مصنوعی به تصور حمله به انسان</a></h3>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="http://invaroonvar.com/%d8%aa%d8%ac%d8%b2%db%8c%d9%87-%d8%b3%d8%a7%d9%85%d8%b3%d9%88%d9%86%da%af-%d8%af%d8%b1-%d8%ad%d8%a7%d9%84-%d8%a8%d8%b1%d8%b1%d8%b3%db%8c-%d8%a7%d8%b3%d8%aa%d8%9b-%d8%ba%d9%88%d9%84-%da%a9%d8%b1%d9%87/" class="image-link"><img width="620" height="328" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large.jpg" class="attachment-main-slider size-main-slider wp-post-image" alt="تجزیه سامسونگ در حال بررسی است؛ غول کره‌ای تایید کرد" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large-300x159.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large-351x185.jpg 351w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large-300x159@2x.jpg 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
+                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
+                                <div class="caption">
+                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۲۴ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
+                                    <h3><a href="http://invaroonvar.com/%d8%aa%d8%ac%d8%b2%db%8c%d9%87-%d8%b3%d8%a7%d9%85%d8%b3%d9%88%d9%86%da%af-%d8%af%d8%b1-%d8%ad%d8%a7%d9%84-%d8%a8%d8%b1%d8%b1%d8%b3%db%8c-%d8%a7%d8%b3%d8%aa%d8%9b-%d8%ba%d9%88%d9%84-%da%a9%d8%b1%d9%87/" title="تجزیه سامسونگ در حال بررسی است؛ غول کره‌ای تایید کرد">تجزیه سامسونگ در حال بررسی است؛ غول کره‌ای تایید کرد</a></h3>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="pages" data-number="5">
+                            <a href="#"></a>
+                            <a href="#"></a>
+                            <a href="#"></a>
+                            <a href="#"></a>
+                            <a href="#"></a>
+                        </div>
+
+
+                    </div> <!-- .flexslider -->
+
+                    <div class="blocks col-4">
+
+                        <article class="large">
+                            <span class="cat cat-title cat-1"><a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/">تازه های فن آوری</a></span>
+                            <a href="http://invaroonvar.com/%d8%af%d8%a7%d9%86%d8%b4%d9%85%d9%86%d8%af%d8%a7%d9%86-%d9%85%d9%88%d9%81%d9%82-%d8%a8%d9%87-%da%a9%d8%b4%d9%81-%d8%a2%d8%a8-%d8%af%d8%b1-%d8%b9%d9%85%d9%82-%d9%87%d8%b2%d8%a7%d8%b1-%da%a9%db%8c%d9%84/" class="image-link"><img width="351" height="185" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533-351x185.jpg" class="attachment-main-block size-main-block wp-post-image" alt="دانشمندان موفق به کشف آب در عمق هزار کیلومتری زمین شدند" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533-351x185.jpg 351w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533-300x159.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533-300x159@2x.jpg 600w" sizes="(max-width: 351px) 100vw, 351px" /></a>
+                            <h3><a href="http://invaroonvar.com/%d8%af%d8%a7%d9%86%d8%b4%d9%85%d9%86%d8%af%d8%a7%d9%86-%d9%85%d9%88%d9%81%d9%82-%d8%a8%d9%87-%da%a9%d8%b4%d9%81-%d8%a2%d8%a8-%d8%af%d8%b1-%d8%b9%d9%85%d9%82-%d9%87%d8%b2%d8%a7%d8%b1-%da%a9%db%8c%d9%84/" title="دانشمندان موفق به کشف آب در عمق هزار کیلومتری زمین شدند">دانشمندان موفق به کشف آب در عمق هزار کیلومتری زمین شدند</a></h3>
+                        </article>
+
+                        <article class="small">
+                            <a href="http://invaroonvar.com/%d8%a8%d8%b1%d8%b1%d8%b3%db%8c-%d8%aa%d8%ae%d8%b5%d8%b5%db%8c-%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%ac%d8%af%db%8c%d8%af%d8%aa%d8%b1%db%8c%d9%86-%d9%be%d8%b1%da%86%d9%85%d8%af%d8%a7%d8%b1-lg-%d8%9b/" class="image-link"><img width="168" height="137" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499882-lg-V20-Camera-tips-168x137.jpg" class="attachment-slider-small size-slider-small wp-post-image" alt="بررسی تخصصی دوربین جدیدترین پرچمدار LG ؛ با قابلیت‌های دوربین ال جی وی ۲۰ آشنا شوید" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499882-lg-V20-Camera-tips-168x137.jpg 168w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499882-lg-V20-Camera-tips-168x137@2x.jpg 336w" sizes="(max-width: 168px) 100vw, 168px" /></a>
+                            <h3><a href="http://invaroonvar.com/%d8%a8%d8%b1%d8%b1%d8%b3%db%8c-%d8%aa%d8%ae%d8%b5%d8%b5%db%8c-%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%ac%d8%af%db%8c%d8%af%d8%aa%d8%b1%db%8c%d9%86-%d9%be%d8%b1%da%86%d9%85%d8%af%d8%a7%d8%b1-lg-%d8%9b/" title="بررسی تخصصی دوربین جدیدترین پرچمدار LG ؛ با قابلیت‌های دوربین ال جی وی ۲۰ آشنا شوید">بررسی تخصصی دوربین جدیدترین پرچمدار LG ؛ با قابلیت‌های دوربین ال جی وی ۲۰ آشنا شوید</a></h3>
+                        </article>
+
+                        <article class="small last">
+                            <a href="http://invaroonvar.com/%d8%ac%d8%af%db%8c%d8%af%d8%aa%d8%b1%db%8c%d9%86-%d8%a2%d9%85%d8%a7%d8%b1-%d8%a7%d8%b2-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%a7%d8%b1%d8%aa%d8%a8%d8%a7%d8%b7%d8%a7%d8%aa-%d8%af%d8%a7%d8%ae%d9%84%db%8c/" class="image-link"><img width="168" height="137" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499879-2183523-168x137.jpg" class="attachment-slider-small size-slider-small wp-post-image" alt="جدیدترین آمار از وضعیت ارتباطات داخلی کشور اعلام شد؛ ضریب نفوذ ۹۹ درصدی موبایل" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499879-2183523-168x137.jpg 168w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499879-2183523-168x137@2x.jpg 336w" sizes="(max-width: 168px) 100vw, 168px" /></a>
+                            <h3><a href="http://invaroonvar.com/%d8%ac%d8%af%db%8c%d8%af%d8%aa%d8%b1%db%8c%d9%86-%d8%a2%d9%85%d8%a7%d8%b1-%d8%a7%d8%b2-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%a7%d8%b1%d8%aa%d8%a8%d8%a7%d8%b7%d8%a7%d8%aa-%d8%af%d8%a7%d8%ae%d9%84%db%8c/" title="جدیدترین آمار از وضعیت ارتباطات داخلی کشور اعلام شد؛ ضریب نفوذ ۹۹ درصدی موبایل">جدیدترین آمار از وضعیت ارتباطات داخلی کشور اعلام شد؛ ضریب نفوذ ۹۹ درصدی موبایل</a></h3>
+                        </article>
+
+                    </div>
+
+                </div> <!-- .row -->
+            </div> <!--  .wrap  -->
+        </div>
+
+        <div class="main wrap cf">
+            <div class="row">
+                {% block body %} body {% endblock %}
+            </div> <!-- .row -->
+        </div> <!-- .main -->
+
+
+        <footer class="main-footer">
+
+            <div class="wrap">
+                <ul class="widgets row cf">
+                    <li class="widget column bunyad-about">
+                        <div class="about-widget">
+                            <p class="logo-text"><span class="main-color">اینور اونور</span> - مجله اینترنتی</p>
+                            <p> مجله اینترنتی اینور اونور با هدف جمع آوری آخرین و بروزترین اخبار و مطالب در زمینه های علمی، فرهنگی، هنری، دنیای فن آوری و غیره در قالب یک مجموعه و در اختیار قرار دادن آن در درستر مخاطبین خود فعالیت خود را آغاز نموده است. امیدواریم با ارسال باز خورد های خود ما را در راه بهتر شدن همراهی نمایید. جهت دریافت برترین مطالب مجله در پست الکترونیک خود میتوانید از طریق فرم زیر در خبرنامه سایت عضو شوید.</p>
+                            <div class="feedburner">
+                                <p class="heading">عضویت در خبرنامه سایت</p>
+                                <form method="post" action="http://feedburner.google.com/fb/a/mailverify">
+                                    <label for="feedburner-email">آدرس ایمیل ...</label>
+                                    <input type="text" id="feedburner-email" name="email" class="feedburner-email" placeholder="آدرس ایمیل ..." />
+                                    <input class="feedburner-subscribe" type="submit" name="submit" value="عضو شو" />
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="lower-foot">
+                <div class="wrap">
+                    <div class="widgets">
+                        <div class="textwidget"><strong>{{ site_title }}</strong>
+                            <div>تمامی حقوق انتشار محفوظ می باشد.</div>
+                        </div>
+                        <div class="menu-footer-container">
+                            <ul id="menu-footer" class="menu">
+                                <li id="menu-item-1" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2109"><a href="#">خانه</a></li>
+                                <li id="menu-item-2" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2174"><a href="#">درباره ما</a></li>
+                                <li id="menu-item-3" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2172"><a href="#">نقشه سایت</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+
+    </div> <!-- .main-wrap -->
+
+    <script type="text/javascript" src="http://{{ domain }}/theme/js/bunyad-theme.js?ver=2.4.1"></script>
+    <script type="text/javascript" src="http://{{ domain }}/theme/js/rtl-jquery.flexslider-min.js?ver=2.4.1"></script>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', '{{ ga_tracking }}', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+</body>
 </html>

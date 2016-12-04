@@ -2,3 +2,7 @@ services:
 #    blog.example:
 #        class: BlogBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    Blog.twig.extension:
+        class: BlogBundle\Twig\Extensions\BlogExtension
+        tags:
+            - { name: twig.extension }

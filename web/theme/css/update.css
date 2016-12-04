@@ -1,0 +1,329 @@
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: bold;
+	src: url('../fonts/iransans/eot/IRANSansWeb_Bold.eot');
+	src: url('../fonts/iransans/eot/IRANSansWeb_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+	url('../fonts/iransans/woff2/IRANSansWeb_Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+	url('../fonts/iransans/woff/IRANSansWeb_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+	url('../fonts/iransans/ttf/IRANSansWeb_Bold.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 500;
+	src: url('../fonts/iransans/eot/IRANSansWeb_Medium.eot');
+	src: url('../fonts/iransans/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+	url('../fonts/iransans/woff2/IRANSansWeb_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+	url('../fonts/iransans/woff/IRANSansWeb_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+	url('../fonts/iransans/ttf/IRANSansWeb_Medium.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 300;
+	src: url('../fonts/iransans/eot/IRANSansWeb_Light.eot');
+	src: url('../fonts/iransans/eot/IRANSansWeb_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+	url('../fonts/iransans/woff2/IRANSansWeb_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+	url('../fonts/iransans/woff/IRANSansWeb_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+	url('../fonts/iransans/ttf/IRANSansWeb_Light.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 200;
+	src: url('../fonts/iransans/eot/IRANSansWeb_UltraLight.eot');
+	src: url('../fonts/iransans/eot/IRANSansWeb_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+	url('../fonts/iransans/woff2/IRANSansWeb_UltraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+	url('../fonts/iransans/woff/IRANSansWeb_UltraLight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+	url('../fonts/iransans/ttf/IRANSansWeb_UltraLight.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: normal;
+	src: url('../fonts/iransans/eot/IRANSansWeb.eot');
+	src: url('../fonts/iransans/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+	url('../fonts/iransans/woff2/IRANSansWeb.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+	url('../fonts/iransans/woff/IRANSansWeb.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+	url('../fonts/iransans/ttf/IRANSansWeb.ttf') format('truetype');
+}
+
+.navigation ul li,button,input[type="submit"],.sc-button,.button,.listing-alt .content .read-more a {
+	font-family:IRANSans;
+}
+body {
+	font-family:IRANSans;
+	font-size:14px;
+}
+.highlights h2 a {
+	font-family:IRANSans;
+	font-size:17px;
+}
+.highlights .meta time,.highlights .comments a,.cat-title a,.main-head .title,.posts-list .content time,.posts-list .comments a,.posts-list .content>a,.widget li,input,textarea,select,.main-pagination .page-numbers,.main-paginationaو.post-header .commentsو.main-heading, .page-title, .entry-title {
+	font-family: IRANSans;
+}
+h1,h2,h3,h4,h5,h6,.post-content h1,.post-content h2,.post-content h3,.post-content h4,.post-content h5,.post-content h6 {
+	font-family:IRANSans;
+	font-weight:normal;
+}
+.main .sidebar .widgettitle,.tabbed .tabs-list {
+	font-family:IRANSans;
+	font-size:17px;
+}
+.trending-ticker a {
+	font-family:IRANSans;
+	font-size:13px;
+}
+.trending-ticker .heading {
+	margin-left: 10px;
+}
+.main-content .post-meta,.main-featured .the-date {
+	font-family:IRANSans;
+	font-size:12px;
+}
+.gallery-title,.section-head {
+	font-family:IRANSans;
+	font-size:18px;
+	font-weight:300;
+}
+.main-heading,.page-title,.entry-title,.block.posts a,h3.gallery-title,.list-timeline .posts time,.list-timeline .posts article {
+	font-family:IRANSans;
+}
+.page-content .main-heading {
+	font-weight:300;
+}
+.listing-alt .content>a {
+	font-size:17px;
+}
+.gallery-block .carousel .title a {
+	font-family:IRANSans;
+	font-size:13px;
+}
+.list-timeline .heading {
+	font-family:IRANSans;
+	font-size:17px;
+	font-weight:300;
+}
+.main-footer .widgettitle {
+	font-family:IRANSans;
+	font-size:18px;
+	font-weight:300;
+}
+.woocommerce div.product form.cart .button,.woocommerce-page div.product form.cart .button {
+	font-family:IRANSans;
+	font-size:13px;
+	font-weight:bold;
+}
+.woocommerce ul.products li.product .amount,.woocommerce div.product p.price,.cart_totals .order-total .amount {
+	font-family:IRANSans;
+}
+.woocommerce ul.products li.product .price .amount:first-letter,.woocommerce div.product p.price .amount:first-letter {
+	font-size:19px;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+	font-family:IRANSans;
+}
+.woocommerce #review_form #respond .form-submit input,.woocommerce-page #review_form #respond .form-submit input {
+	font-family:IRANSans;
+	font-size:13px;
+	font-weight:bold;
+}
+.woocommerce .related h2,.woocommerce-page .related h2,.woocommerce .checkout h3,.woocommerce-account .post-content h2,.woocommerce-checkout .post-content h2,.woocommerce-account form>h3,.cross-sells h2,.upsells h2 {
+	font-family:IRANSans;
+	font-weight:300;
+}
+ul.product_list_widget li a,.woocommerce ul.products li.product h3,.woocommerce-page ul.products li.product h3 {
+	font-family:IRANSans;
+}
+.woocommerce ul.products li.product h3,.woocommerce-page ul.products li.product h3 {
+	font-size:13px;
+}
+body.woocommerce .main-wrap .button,body.woocommerce-page .main-wrap .button,.woocommerce.widget .button,.woocommerce #respond input#submit {
+	font-family:IRANSans;
+	font-weight:bold;
+}
+.woocommerce table.shop_table th,.woocommerce-page table.shop_table th {
+	font-family:IRANSans;
+	font-size:16px;
+	font-weight:300;
+}
+.woocommerce table.shop_table,.woocommerce-page table.shop_table {
+	font-family:IRANSans;
+}
+.woocommerce .cart_totals h2,.woocommerce-page .cart_totals h2,.woocommerce .shipping_calculator h2,.woocommerce-page .shipping_calculator h2,.woocommerce .addresses .title h3,.woocommerce-page .addresses .title h3 {
+	font-family:IRANSans;
+	font-size:16px;
+	font-weight:300;
+}
+.woocommerce table.shop_table tfoot td,.woocommerce table.shop_table tfoot th,.woocommerce-page table.shop_table tfoot td,.woocommerce-page table.shop_table tfoot th {
+	font-weight:300;
+}
+a.pp_close,a.pp_expand,a.pp_contract {
+	text-indent:10000px;
+	direction:ltr;
+}
+.woocommerce div.product form.cart div.quantity,.woocommerce #content div.product form.cart div.quantity,.woocommerce-page div.product form.cart div.quantity,.woocommerce-page #content div.product form.cart div.quantity {
+	float:right;
+	margin:0 0 0 4px;
+}
+.woocommerce div.product form.cart .button,.woocommerce #content div.product form.cart .button,.woocommerce-page div.product form.cart .button,.woocommerce-page #content div.product form.cart .button {
+	float:right;
+}
+.woocommerce div.product form.cart .button,.woocommerce-page div.product form.cart .button {
+	margin-left:21px;
+	margin-right:auto;
+}
+.woocommerce #content div.product div.thumbnails a,.woocommerce div.product div.thumbnails a,.woocommerce-page #content div.product div.thumbnails a,.woocommerce-page div.product div.thumbnails a {
+	float:right;
+	margin-right:auto;
+	margin-left:3.8%;
+}
+.woocommerce ul.products li.product,.woocommerce-page ul.products li.product {
+	float:right;
+	margin:0 0 2.992em 3.8%;
+}
+.woocommerce ul.products li.product,.woocommerce-page ul.products li.product {
+	padding-right:15px;
+	padding-left:0;
+}
+.no-sidebar.woocommerce ul.products li.product,.no-sidebar.woocommerce-page ul.products li.product,.no-sidebar.woocommerce .upsells.products ul li.product,.no-sidebar.woocommerce-page .upsells.products ul li.product {
+	padding-right:25px;
+	padding-left:0;
+}
+.woocommerce ul.products li.product,.woocommerce-page ul.products li.product {
+	margin:0 0 35px;
+}
+.no-sidebar.woocommerce ul.products,.no-sidebar.woocommerce-page ul.products {
+	margin-right:-25px;
+	margin-left:auto;
+}
+.no-sidebar.woocommerce ul.products li.product h3:before,.no-sidebar.woocommerce-page ul.products li.product h3:before {
+	right:25px;
+}
+.woocommerce ul.products li.product h3:before,.woocommerce-page ul.products li.product h3:before {
+	right:15px;
+}
+.cart .quantity input.minus {
+	float:left;
+}
+.woocommerce .cart-collaterals .shipping_calculator .shipping-calculator-button:after,.woocommerce-page .cart-collaterals .shipping_calculator .shipping-calculator-button:after {
+	margin-right:7px;
+	margin-left:auto;
+}
+.woocommerce #payment ul.payment_methods li,.woocommerce-page #payment ul.payment_methods li,.woocommerce table.shop_table,.woocommerce-page table.shop_table {
+	text-align:right;
+}
+.woocommerce .col2-set .col-1,.woocommerce-page .col2-set .col-1 {
+	float:right;
+}
+.woocommerce .col2-set .col-2,.woocommerce-page .col2-set .col-2 {
+	float:left;
+}
+.woocommerce .checkout .col-2 h3#ship-to-different-address,.woocommerce-page .checkout .col-2 h3#ship-to-different-address {
+	float:right;
+}
+.cat-title a {
+	color:inherit!important;
+}
+.woocommerce p.stars a.star-1:after,.woocommerce p.stars a.star-2:after,.woocommerce p.stars a.star-3:after,.woocommerce p.stars a.star-4:after,.woocommerce p.stars a.star-5:after,.woocommerce-page p.stars a.star-1:after,.woocommerce-page p.stars a.star-2:after,.woocommerce-page p.stars a.star-3:after,.woocommerce-page p.stars a.star-4:after,.woocommerce-page p.stars a.star-5:after {
+	right:0;
+	left:auto;
+}
+.woocommerce p.stars a.star-1,.woocommerce p.stars a.star-2,.woocommerce p.stars a.star-3,.woocommerce p.stars a.star-4,.woocommerce p.stars a.star-5,.woocommerce-page p.stars a.star-1,.woocommerce-page p.stars a.star-2,.woocommerce-page p.stars a.star-3,.woocommerce-page p.stars a.star-4,.woocommerce-page p.stars a.star-5 {
+	border-left:1px solid #CCCCCC;
+	border-right:none;
+}
+
+.sm-gallery{
+	display: block;
+	clear: both;
+	margin: 25px 10px 15px;
+}
+.sm-gallery li{
+	float: right;
+	margin: 10px;
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+	.sm-gallery li{
+		width: 45%;
+	}
+}
+@media (min-width: 992px) {
+	.sm-gallery li{
+		width: 30%;
+	}
+}
+@media (min-width: 1200px) {
+	.sm-gallery li{
+		width: 21%;
+	}
+}
+
+.post-content ul{
+	padding:0px;
+	margin:0px;
+	list-style: none;
+	display: block;
+	clear-side: both;
+}
+
+.tagcloud {
+	clear: both;
+	margin-top: 25px;
+	padding:15px 10px;
+}
+.tagcloud a {
+	border: 0px;
+	background: #DDD;
+	border-radius: 5px;
+}
+.widget_tag_cloud a{
+	font-size: 13px !important;
+}
+.post-meta .cats {
+	float: none;
+}
+.posts-list .views,
+.post-meta .views,
+.meta .views {
+	float: left;
+	font-size:11px;
+	color:#a6a6a6;
+}
+
+.meta .views {
+	margin-left: 10px;
+}
+
+.navigate-posts a{
+	font-family: IRANSans;
+	font-size: 17px;
+}
+
+.bunyad-about,
+.widget_tag_cloud{
+	margin-top:25px;
+}
+
+.featured img{
+	width: 100%;
+}
+
+.flexslider .slides li {
+	height: 170px;
+	overflow: hidden;
+}
+.flexslider .slides img {
+	width: 100%;
+}
+.navigation .menu li > a {
+	 padding: 0px 20px;
+}
+
+.sticky .sticky-logo {
+	padding-right: 10px;
+	padding-left: 10px;
+}

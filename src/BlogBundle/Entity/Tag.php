@@ -94,7 +94,7 @@ class Tag extends EntityWrapper
      */
     public function setSlug($slug)
     {
-        $this->slug = $this->slug($slug);
+        $this->slug = $this->slugify($slug);
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace BlogBundle\Repository;
 
+use BlogBundle\Entity\Category;
+
 /**
  * CategoryRepository
  *
@@ -10,5 +12,25 @@ namespace BlogBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-
+    public function getLatestArticlesForMegaMenu(Category $category)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        
+        return
+            $qb
+                ->select('a')
+                ->from('BlogBundle:Article', 'a')
+                ->join('a.categories', 'c')
+                ->where(
+                    $qb->expr()->andx(
+                        $qb->expr()->isNotNull('a.image'),
+                        $qb->expr()->eq('c.id', $category->getId())
+                    ))
+                ->orderBy('a.id', 'DESC')
+                ->setFirstResult(0)
+                ->setMaxResults(5)
+                ->getQuery()
+                ->getResult()
+        ;
+    }
 }

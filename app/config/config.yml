@@ -38,6 +38,12 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        domain: "%domain%"
+        site_name: "%site_name%"
+        site_title: "%site_title%"
+        ga_tracking: "%ga_tracking%"
+        google_verification: "%google_verification%"
 
 # Doctrine Configuration
 doctrine:

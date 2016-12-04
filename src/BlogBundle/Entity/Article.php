@@ -75,7 +75,7 @@ class Article extends EntityWrapper
     private $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="article")
+     * @ORM\ManyToMany(targetEntity="Category")
      * @ORM\JoinTable(name="articles_categories")
      */
     private $categories;
@@ -161,7 +161,7 @@ class Article extends EntityWrapper
      */
     public function setExcerpt($excerpt)
     {
-        $this->excerpt = $excerpt;
+        $this->excerpt =  preg_replace('/\s+/', ' ', $excerpt);
 
         return $this;
     }
@@ -185,7 +185,7 @@ class Article extends EntityWrapper
      */
     public function setSlug($slug)
     {
-        $this->slug = $this->slug($slug);
+        $this->slug = $this->slugify($slug);
 
         return $this;
     }
@@ -413,7 +413,6 @@ class Article extends EntityWrapper
      */
     public function addCategory(Category $category)
     {
-        $category->addArticle($this);
         $this->categories[] = $category;
 
         return $this;
@@ -423,11 +422,13 @@ class Article extends EntityWrapper
      * Remove category
      *
      * @param Category $category
+     * @return $this
      */
     public function removeCategory(Category $category)
     {
-        $category->removeArticle($this);
         $this->categories->removeElement($category);
+
+        return $this;
     }
 
     /**

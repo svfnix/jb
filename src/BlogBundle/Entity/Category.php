@@ -39,9 +39,11 @@ class Category extends EntityWrapper
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Article", mappedBy="categories")
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=255, unique=true)
      */
-    private $articles;
+    private $color;
 
     /**
      * Constructor
@@ -94,7 +96,7 @@ class Category extends EntityWrapper
      */
     public function setSlug($slug)
     {
-        $this->slug = $this->slug($slug);
+        $this->slug = $this->slugify($slug);
 
         return $this;
     }
@@ -110,36 +112,21 @@ class Category extends EntityWrapper
     }
 
     /**
-     * Add article
-     *
-     * @param Article $article
-     *
+     * @param mixed $color
      * @return Category
      */
-    public function addArticle(Article $article)
+    public function setColor($color)
     {
-        $this->articles[] = $article;
-
+        $this->color = $color;
+        
         return $this;
     }
 
     /**
-     * Remove article
-     *
-     * @param Article $article
+     * @return mixed
      */
-    public function removeArticle(Article $article)
+    public function getColor()
     {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticles()
-    {
-        return $this->articles;
+        return $this->color;
     }
 }
