@@ -10,5 +10,46 @@ namespace BlogBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getLatestWithImage($count = 10)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return
+            $qb
+                ->select('a')
+                ->from('BlogBundle:Article', 'a')
+                ->join('a.categories', 'c')
+                ->where(
+                    $qb->expr()->andx(
+                        $qb->expr()->isNotNull('a.image')
+                    ))
+                ->orderBy('a.id', 'DESC')
+                ->setFirstResult(0)
+                ->setMaxResults($count)
+                ->getQuery()
+                ->getResult()
+            ;
+    }
+
+    public function getLatestTextOnly($count = 10)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return
+            $qb
+                ->select('a')
+                ->from('BlogBundle:Article', 'a')
+                ->join('a.categories', 'c')
+                ->where(
+                    $qb->expr()->andx(
+                        $qb->expr()->isNull('a.image')
+                    ))
+                ->orderBy('a.id', 'DESC')
+                ->setFirstResult(0)
+                ->setMaxResults($count)
+                ->getQuery()
+                ->getResult()
+            ;
+    }
     
 }

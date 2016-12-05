@@ -16,6 +16,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
+            new SymfonyPersia\JalaliDateBundle\SymfonyPersiaJalaliDateBundle(),
             new FeedBundle\FeedBundle(),
             new BlogBundle\BlogBundle(),
         ];

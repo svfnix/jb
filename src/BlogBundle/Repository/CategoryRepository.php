@@ -12,7 +12,7 @@ use BlogBundle\Entity\Category;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getLatestArticlesForMegaMenu(Category $category)
+    public function getLatestArticlesForMegaMenu(Category $category, $count = 10)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         
@@ -28,7 +28,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
                     ))
                 ->orderBy('a.id', 'DESC')
                 ->setFirstResult(0)
-                ->setMaxResults(5)
+                ->setMaxResults($count)
                 ->getQuery()
                 ->getResult()
         ;

@@ -19,6 +19,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     domain:
+    site_name:
     site_title:
     google_verification:
     ga_tracking:

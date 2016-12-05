@@ -4,20 +4,11 @@ namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\Category;
 use BlogBundle\Wrapper\ControllerWrapper;
-use Proxies\__CG__\BlogBundle\Entity\Article;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends ControllerWrapper
 {
-
-    public function __categoryMegaPanelAction($category)
-    {
-        $em = $this->getDoctrine()->getManager();
-        return $this->render('BlogBundle:Default:mega_panel.html.twig', [
-            'items' => $em->getRepository('BlogBundle:Category')->getLatestArticlesForMegaMenu($category)
-        ]);
-    }
 
     /**
      * @Route("/")

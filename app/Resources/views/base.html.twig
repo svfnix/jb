@@ -65,7 +65,7 @@
                     <div class="trending-ticker">
                         <span class="heading">تازه ها :</span>
                         <ul>
-                        {% for article in theme.latest_articles %}
+                        {% for article in theme.latest_articles_text_only %}
                             <li><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></li>
                         {% endfor %}
                         </ul>
@@ -137,9 +137,59 @@
                                 </ul>
                             </li>
 
-                            {% for category in theme.categories %}
-                            <li id="menu-item-2624" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-208 menu-item-2624"><a href="{{ path('category_url', {'slug': category.slug}) }}">{{ category.title }}</a>
-                                {{ render(controller("BlogBundle:Default:__categoryMegaPanel", { 'category' : category })) }}
+                            {% for catitem in theme.categories %}
+                            <li id="menu-item-2624" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-208 menu-item-2624"><a href="{{ path('category_url', {'slug': catitem.category.slug}) }}">{{ catitem.category.title }}</a>
+                                <div class="mega-menu row">
+                                    <div class="col-12 extend">
+
+                                        <section class="col-4 featured">
+                                            <span class="heading">مطالب ویژه</span>
+                                            <div class="highlights">
+                                                {% for item in catitem.items[0:1] %}
+                                                    <article>
+                                                        <a href="{{ path('article_path', {'slug': item.slug}) }}" title="{{ item.excerpt }}" class="image-link">
+                                                            <img width="351" height="185" src="{{ item.image }}" class="image wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" />
+                                                        </a>
+                                                        <div class="meta">
+                                                            <time datetime="{{ item.createdAt }}">{{ item.createdAt|jdate }}</time>
+                                                            <span class="views">{{ item.views }} بازدید</span>
+                                                        </div>
+                                                        <h2><a href="{{ path('article_path', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a></h2>
+                                                    </article>
+                                                {% endfor %}
+                                            </div>
+                                        </section>
+
+                                        <section class="col-8 recent-posts">
+                                            <span class="heading">مطالب جدید</span>
+                                            <div class="posts-list col-6">
+                                                {% for item in catitem.items[1:3] %}
+                                                    <div class="post">
+                                                        <a href="{{ path('article_path', {'slug': item.slug}) }}"><img width="110" height="96" src="{{ item.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" /></a>
+                                                        <div class="content">
+                                                            <span class="views">{{ item.views }} بازدید</span>
+                                                            <time datetime="{{ item.createdAt }}">{{ item.createdAt|jdate }}</time>
+                                                            <a href="{{ path('article_path', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="posts-list col-6">
+                                                {% for item in catitem.items[4:3] %}
+                                                    <div class="post">
+                                                        <a href="{{ path('article_path', {'slug': item.slug}) }}"><img width="110" height="96" src="{{ item.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" /></a>
+                                                        <div class="content">
+                                                            <span class="views">{{ item.views }} بازدید</span>
+                                                            <time datetime="{{ item.createdAt }}">{{ item.createdAt|jdate }}</time>
+                                                            <a href="{{ path('article_path', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </section>
+
+                                    </div>
+                                </div>
                             </li>
                             {% endfor %}
 
@@ -157,77 +207,43 @@
                 <div class="row">
                     <div class="slider frame flexslider col-8" data-animation-speed="600" data-animation="fade" data-slide-delay="5000">
                         <ul class="slides">
+                            {% for article in theme.latest_articles_with_image[0:7] %}
                             <li>
-                                <a href="http://invaroonvar.com/%d8%a8%d8%a7-%d8%ba%db%8c%d8%b1-%d9%85%d9%86%d8%aa%d8%b8%d8%b1%d9%87%e2%80%8c%d8%aa%d8%b1%db%8c%d9%86-%d9%85%d9%86%d8%a7%d8%a8%d8%b9-%d8%a7%d9%86%d8%b1%da%98%db%8c%e2%80%8c-%d9%87%d8%a7%db%8c-%d8%aa/" class="image-link"><img width="620" height="330" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499910-Energy.jpg" class="attachment-main-slider size-main-slider wp-post-image" alt="با غیر منتظره‌ترین منابع انرژی‌ های تجدیدپذیر آشنا شوید" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499910-Energy.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499910-Energy-300x160.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499910-Energy-300x160@2x.jpg 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
-                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
+                                <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="620" height="330" src="{{ article.image }}" class="attachment-main-slider size-main-slider wp-post-image" alt="{{ article.title }}" title="{{ article.title }}"/></a>
+                                {% if article.categories %}<a href="{{ path('category_url', {'slug': article.categories[0].slug}) }}" class="cat cat-title cat-1">{{ article.categories[0].title }}</a>{% endif %}
                                 <div class="caption">
-                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۴۲ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
-                                    <h3><a href="http://invaroonvar.com/%d8%a8%d8%a7-%d8%ba%db%8c%d8%b1-%d9%85%d9%86%d8%aa%d8%b8%d8%b1%d9%87%e2%80%8c%d8%aa%d8%b1%db%8c%d9%86-%d9%85%d9%86%d8%a7%d8%a8%d8%b9-%d8%a7%d9%86%d8%b1%da%98%db%8c%e2%80%8c-%d9%87%d8%a7%db%8c-%d8%aa/" title="با غیر منتظره‌ترین منابع انرژی‌ های تجدیدپذیر آشنا شوید">با غیر منتظره‌ترین منابع انرژی‌ های تجدیدپذیر آشنا شوید</a></h3>
+                                    <time datetime="{{ item.createdAt }}">{{ item.createdAt|jdate }}</time>
+                                    <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
                                 </div>
                             </li>
-                            <li>
-                                <a href="http://invaroonvar.com/%d9%be%da%af%d8%a7%d8%aa%d8%b1%d9%88%d9%86-%d8%a2%d8%b2%d9%85%d8%a7%db%8c%d8%b4%e2%80%8c%d9%87%d8%a7%db%8c-%d8%a7%d9%88%d9%84%db%8c%d9%87-%d8%a8%d8%b1%d8%a7%db%8c-%d8%b3%d8%a7%d8%ae%d8%aa-%d8%b3%d8%b1/" class="image-link"><img width="620" height="329" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy.jpg" class="attachment-main-slider size-main-slider wp-post-image" alt="پگاترون آزمایش‌های اولیه برای ساخت سرفیس فون را آغاز کرده است" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy-300x159.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy-351x185.jpg 351w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499904-Surface-Phone-concept-renders-by-Behance9-copy-300x159@2x.jpg 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
-                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
-                                <div class="caption">
-                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۳۸ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
-                                    <h3><a href="http://invaroonvar.com/%d9%be%da%af%d8%a7%d8%aa%d8%b1%d9%88%d9%86-%d8%a2%d8%b2%d9%85%d8%a7%db%8c%d8%b4%e2%80%8c%d9%87%d8%a7%db%8c-%d8%a7%d9%88%d9%84%db%8c%d9%87-%d8%a8%d8%b1%d8%a7%db%8c-%d8%b3%d8%a7%d8%ae%d8%aa-%d8%b3%d8%b1/" title="پگاترون آزمایش‌های اولیه برای ساخت سرفیس فون را آغاز کرده است">پگاترون آزمایش‌های اولیه برای ساخت سرفیس فون را آغاز کرده است</a></h3>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="http://invaroonvar.com/%d8%af%d8%a7%d9%86%d9%84%d9%88%d8%af-%da%a9%d9%86%db%8c%d8%af-%d8%a8%d9%87%d8%aa%d8%b1%db%8c%d9%86-%d8%a8%d8%b1%d9%86%d8%a7%d9%85%d9%87-%d9%87%d8%a7%db%8c-%d9%85%d9%88%d8%a8%d8%a7%db%8c%d9%84%db%8c/" class="image-link"><img width="620" height="328" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header.jpg" class="attachment-main-slider size-main-slider wp-post-image" alt="دانلود کنید: بهترین برنامه های موبایلی جدید اندروید و آی او اس (۲ الی ۹ آذرماه)" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header-300x159.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header-351x185.jpg 351w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499900-New-apps-header-300x159@2x.jpg 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
-                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
-                                <div class="caption">
-                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۳۳ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
-                                    <h3><a href="http://invaroonvar.com/%d8%af%d8%a7%d9%86%d9%84%d9%88%d8%af-%da%a9%d9%86%db%8c%d8%af-%d8%a8%d9%87%d8%aa%d8%b1%db%8c%d9%86-%d8%a8%d8%b1%d9%86%d8%a7%d9%85%d9%87-%d9%87%d8%a7%db%8c-%d9%85%d9%88%d8%a8%d8%a7%db%8c%d9%84%db%8c/" title="دانلود کنید: بهترین برنامه های موبایلی جدید اندروید و آی او اس (۲ الی ۹ آذرماه)">دانلود کنید: بهترین برنامه های موبایلی جدید اندروید و آی او اس (۲ الی ۹ آذرماه)</a></h3>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="http://invaroonvar.com/%d8%b1%d8%a8%d8%a7%d8%aa%e2%80%8c%d9%87%d8%a7-%d8%a7%d8%b2-%d8%a7%db%8c%d9%86-%d9%be%d8%b3-%d9%82%d8%a7%d8%af%d8%b1-%d8%a8%d9%87-%d8%b1%d9%88%db%8c%d8%a7%d9%be%d8%b1%d8%af%d8%a7%d8%b2%db%8c-%d8%ae/" class="image-link"><img width="620" height="330" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499895-brain-plug-796x398.png" class="attachment-main-slider size-main-slider wp-post-image" alt="ربات‌ها از این پس قادر به رویاپردازی خواهند بود؛ نزدیک شدن هوش مصنوعی به تصور حمله به انسان" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499895-brain-plug-796x398.png 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499895-brain-plug-796x398-300x160.png 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499895-brain-plug-796x398-300x160@2x.png 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
-                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
-                                <div class="caption">
-                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۲۸ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
-                                    <h3><a href="http://invaroonvar.com/%d8%b1%d8%a8%d8%a7%d8%aa%e2%80%8c%d9%87%d8%a7-%d8%a7%d8%b2-%d8%a7%db%8c%d9%86-%d9%be%d8%b3-%d9%82%d8%a7%d8%af%d8%b1-%d8%a8%d9%87-%d8%b1%d9%88%db%8c%d8%a7%d9%be%d8%b1%d8%af%d8%a7%d8%b2%db%8c-%d8%ae/" title="ربات‌ها از این پس قادر به رویاپردازی خواهند بود؛ نزدیک شدن هوش مصنوعی به تصور حمله به انسان">ربات‌ها از این پس قادر به رویاپردازی خواهند بود؛ نزدیک شدن هوش مصنوعی به تصور حمله به انسان</a></h3>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="http://invaroonvar.com/%d8%aa%d8%ac%d8%b2%db%8c%d9%87-%d8%b3%d8%a7%d9%85%d8%b3%d9%88%d9%86%da%af-%d8%af%d8%b1-%d8%ad%d8%a7%d9%84-%d8%a8%d8%b1%d8%b1%d8%b3%db%8c-%d8%a7%d8%b3%d8%aa%d8%9b-%d8%ba%d9%88%d9%84-%da%a9%d8%b1%d9%87/" class="image-link"><img width="620" height="328" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large.jpg" class="attachment-main-slider size-main-slider wp-post-image" alt="تجزیه سامسونگ در حال بررسی است؛ غول کره‌ای تایید کرد" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large-300x159.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large-351x185.jpg 351w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499891-130110_TECH_SamsungCES.jpg.CROP_.rectangle3-large-300x159@2x.jpg 600w" sizes="(max-width: 620px) 100vw, 620px" /></a>
-                                <a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/" class="cat cat-title cat-1">تازه های فن آوری</a>
-                                <div class="caption">
-                                    <time class="the-date" datetime="۱۳۹۵-۹-۱۰ ۱۳:۲۸:۲۴ +۰۰:۰۰">آذر ۱۰, ۱۳۹۵</time>
-                                    <h3><a href="http://invaroonvar.com/%d8%aa%d8%ac%d8%b2%db%8c%d9%87-%d8%b3%d8%a7%d9%85%d8%b3%d9%88%d9%86%da%af-%d8%af%d8%b1-%d8%ad%d8%a7%d9%84-%d8%a8%d8%b1%d8%b1%d8%b3%db%8c-%d8%a7%d8%b3%d8%aa%d8%9b-%d8%ba%d9%88%d9%84-%da%a9%d8%b1%d9%87/" title="تجزیه سامسونگ در حال بررسی است؛ غول کره‌ای تایید کرد">تجزیه سامسونگ در حال بررسی است؛ غول کره‌ای تایید کرد</a></h3>
-                                </div>
-                            </li>
+                            {% endfor %}
                         </ul>
-
-                        <div class="pages" data-number="5">
-                            <a href="#"></a>
-                            <a href="#"></a>
-                            <a href="#"></a>
-                            <a href="#"></a>
-                            <a href="#"></a>
-                        </div>
-
 
                     </div> <!-- .flexslider -->
 
                     <div class="blocks col-4">
-
+                        {% set article = theme.latest_articles_with_image[7:1] %}
+                        {% if article %}
                         <article class="large">
-                            <span class="cat cat-title cat-1"><a href="http://invaroonvar.com/category/%d9%81%d9%86%d8%a2%d9%88%d8%b1%db%8c/">تازه های فن آوری</a></span>
-                            <a href="http://invaroonvar.com/%d8%af%d8%a7%d9%86%d8%b4%d9%85%d9%86%d8%af%d8%a7%d9%86-%d9%85%d9%88%d9%81%d9%82-%d8%a8%d9%87-%da%a9%d8%b4%d9%81-%d8%a2%d8%a8-%d8%af%d8%b1-%d8%b9%d9%85%d9%82-%d9%87%d8%b2%d8%a7%d8%b1-%da%a9%db%8c%d9%84/" class="image-link"><img width="351" height="185" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533-351x185.jpg" class="attachment-main-block size-main-block wp-post-image" alt="دانشمندان موفق به کشف آب در عمق هزار کیلومتری زمین شدند" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533-351x185.jpg 351w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533-300x159.jpg 300w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533.jpg 620w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499887-diamond-800x533-300x159@2x.jpg 600w" sizes="(max-width: 351px) 100vw, 351px" /></a>
-                            <h3><a href="http://invaroonvar.com/%d8%af%d8%a7%d9%86%d8%b4%d9%85%d9%86%d8%af%d8%a7%d9%86-%d9%85%d9%88%d9%81%d9%82-%d8%a8%d9%87-%da%a9%d8%b4%d9%81-%d8%a2%d8%a8-%d8%af%d8%b1-%d8%b9%d9%85%d9%82-%d9%87%d8%b2%d8%a7%d8%b1-%da%a9%db%8c%d9%84/" title="دانشمندان موفق به کشف آب در عمق هزار کیلومتری زمین شدند">دانشمندان موفق به کشف آب در عمق هزار کیلومتری زمین شدند</a></h3>
+                            {% if article.categories %}<span class="cat cat-title cat-1"><a href="{{ path('category_url', {'slug': article.categories[0].slug}) }}">{{ path('category_url', {'slug': article.categories[0].title}) }}</a></span>{% endif %}
+                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
+                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
                         </article>
-
+                        {% endif %}
+                        {% set article = theme.latest_articles_with_image[8:1] %}
+                        {% if article %}
                         <article class="small">
-                            <a href="http://invaroonvar.com/%d8%a8%d8%b1%d8%b1%d8%b3%db%8c-%d8%aa%d8%ae%d8%b5%d8%b5%db%8c-%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%ac%d8%af%db%8c%d8%af%d8%aa%d8%b1%db%8c%d9%86-%d9%be%d8%b1%da%86%d9%85%d8%af%d8%a7%d8%b1-lg-%d8%9b/" class="image-link"><img width="168" height="137" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499882-lg-V20-Camera-tips-168x137.jpg" class="attachment-slider-small size-slider-small wp-post-image" alt="بررسی تخصصی دوربین جدیدترین پرچمدار LG ؛ با قابلیت‌های دوربین ال جی وی ۲۰ آشنا شوید" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499882-lg-V20-Camera-tips-168x137.jpg 168w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499882-lg-V20-Camera-tips-168x137@2x.jpg 336w" sizes="(max-width: 168px) 100vw, 168px" /></a>
-                            <h3><a href="http://invaroonvar.com/%d8%a8%d8%b1%d8%b1%d8%b3%db%8c-%d8%aa%d8%ae%d8%b5%d8%b5%db%8c-%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%ac%d8%af%db%8c%d8%af%d8%aa%d8%b1%db%8c%d9%86-%d9%be%d8%b1%da%86%d9%85%d8%af%d8%a7%d8%b1-lg-%d8%9b/" title="بررسی تخصصی دوربین جدیدترین پرچمدار LG ؛ با قابلیت‌های دوربین ال جی وی ۲۰ آشنا شوید">بررسی تخصصی دوربین جدیدترین پرچمدار LG ؛ با قابلیت‌های دوربین ال جی وی ۲۰ آشنا شوید</a></h3>
+                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
+                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
                         </article>
-
+                        {% endif %}
+                        {% set article = theme.latest_articles_with_image[9:1] %}
+                        {% if article %}
                         <article class="small last">
-                            <a href="http://invaroonvar.com/%d8%ac%d8%af%db%8c%d8%af%d8%aa%d8%b1%db%8c%d9%86-%d8%a2%d9%85%d8%a7%d8%b1-%d8%a7%d8%b2-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%a7%d8%b1%d8%aa%d8%a8%d8%a7%d8%b7%d8%a7%d8%aa-%d8%af%d8%a7%d8%ae%d9%84%db%8c/" class="image-link"><img width="168" height="137" src="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499879-2183523-168x137.jpg" class="attachment-slider-small size-slider-small wp-post-image" alt="جدیدترین آمار از وضعیت ارتباطات داخلی کشور اعلام شد؛ ضریب نفوذ ۹۹ درصدی موبایل" title="" srcset="http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499879-2183523-168x137.jpg 168w, http://invaroonvar.com/wp-content/uploads/2016/11/gadgetnews-1480499879-2183523-168x137@2x.jpg 336w" sizes="(max-width: 168px) 100vw, 168px" /></a>
-                            <h3><a href="http://invaroonvar.com/%d8%ac%d8%af%db%8c%d8%af%d8%aa%d8%b1%db%8c%d9%86-%d8%a2%d9%85%d8%a7%d8%b1-%d8%a7%d8%b2-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%a7%d8%b1%d8%aa%d8%a8%d8%a7%d8%b7%d8%a7%d8%aa-%d8%af%d8%a7%d8%ae%d9%84%db%8c/" title="جدیدترین آمار از وضعیت ارتباطات داخلی کشور اعلام شد؛ ضریب نفوذ ۹۹ درصدی موبایل">جدیدترین آمار از وضعیت ارتباطات داخلی کشور اعلام شد؛ ضریب نفوذ ۹۹ درصدی موبایل</a></h3>
+                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
+                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
                         </article>
-
+                        {% endif %}
                     </div>
 
                 </div> <!-- .row -->
