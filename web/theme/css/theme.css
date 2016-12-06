@@ -847,7 +847,7 @@ body.boxed { background: #eee; }
 	
 	.mega-menu .posts-list .content { 
 		border-bottom-color: #2f4154;
-		margin-right: 75px; 
+		margin-right: 75px;
 		min-height: 0;
 	}
 	
@@ -1641,15 +1641,15 @@ hr.half { margin-top: 0; }
 	
 .posts-list img {
 	float: right;
-	width: 85px;
+	width: 75px;
 	height: auto;
 }
 
 .posts-list .content { 
-	margin-right: 103px;
+	margin-right: 90px;
 	line-height: 1;
-	min-height: 73px;
-	border-bottom: 1px solid #d9d9d9;
+	min-height: 75px;
+	text-align: justify;
 }
 
 .posts-list li:first-child { 
@@ -1658,8 +1658,8 @@ hr.half { margin-top: 0; }
 
 .posts-list li {
 	overflow: hidden;
-	padding: 24px 0 0 0;
-	border-bottom: 0;
+	padding: 15px 0;
+	border-bottom: 1px solid #EEE;
 }
 
 .posts-list li > a { 
@@ -1695,6 +1695,12 @@ hr.half { margin-top: 0; }
 	height: 100%;
 	width: 0;
 	margin-top: 0;
+}
+
+.posts-links li{
+	margin: 5px 0px;
+	padding: 5px 0px;
+	border-bottom:1px dotted #EEE;
 }
 
 .posts-list .content > a { 
@@ -2023,7 +2029,8 @@ a img.aligncenter {
 
 .highlights-box.three-col .highlights .meta { margin-top: -20px; }
 
-.highlights-box .column.half:first-child { border-left: 1px solid #d9d9d9; }
+.highlights-box .column.half { border-left: 1px solid #d9d9d9; }
+.highlights-box .column.half:last-child { border-left: none; }
 
 /* main highlights box */
 .highlights { position: relative; }
@@ -2264,7 +2271,6 @@ a img.aligncenter {
 
 .news-focus .row { 
 	overflow: hidden;
-	margin-top: 28px;
 	display: none; 
 }
 
@@ -3365,7 +3371,7 @@ h3.gallery-title {
 
 .main .sidebar .widget { margin-bottom: 35px; /* 2.5em */ }
 
-.main .sidebar .widgettitle, .tabbed .tabs-list {
+.main .widgettitle, .tabbed .tabs-list {
 	font-family: "Open Sans", Arial, sans-serif;
 	font-size: 13px;
 	text-transform: uppercase;
@@ -3691,11 +3697,15 @@ a.button:hover { text-decoration: none; }
 .main-footer .widget a { color: #e0e3E9; }
 
 	/* About Widget */
+	.about-widget {
+		text-align: justify;
+		font-size: 14px;
+	}
 	.about-widget .logo-text {
-		font-size: 22px;
+		font-size: 18px;
 		font-weight: 600;
 		line-height: 1;
-		margin-bottom: 28px;
+		margin-bottom: 15px;
 	}
 
 	/* Latest posts / other post listing widgets */
@@ -3766,4 +3776,11 @@ body {
 	-ms-transform: rotate(180deg);
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
+}
+
+.basecolumn{
+	width: 40% !important;
+}
+.subcolumn{
+	width: 30% !important;
 }

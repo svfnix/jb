@@ -67,9 +67,9 @@ h1,h2,h3,h4,h5,h6,.post-content h1,.post-content h2,.post-content h3,.post-conte
 	font-family:IRANSans;
 	font-weight:normal;
 }
-.main .sidebar .widgettitle,.tabbed .tabs-list {
+.main .widgettitle,.tabbed .tabs-list {
 	font-family:IRANSans;
-	font-size:17px;
+	font-size:15px;
 }
 .trending-ticker a {
 	font-family:IRANSans;

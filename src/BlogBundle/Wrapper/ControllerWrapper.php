@@ -23,14 +23,13 @@ class ControllerWrapper extends Controller
         foreach ($items as $item){
             $categories[] = [
                 'category' => $item,
-                'items' => $em->getRepository('BlogBundle:Category')->getLatestArticlesForMegaMenu($item)
+                'items' => $em->getRepository('BlogBundle:Category')->getLatestArticlesWithImage($item)
             ];
         }
         
         return [
             'categories' => $categories,
-            'latest_articles_with_image' => $em->getRepository('BlogBundle:Article')->getLatestWithImage(),
-            'latest_articles_text_only' => $em->getRepository('BlogBundle:Article')->getLatestTextOnly(),
+            'latest_articles' => $em->getRepository('BlogBundle:Article')->getLatestTextOnly(),
         ];
     }
 }

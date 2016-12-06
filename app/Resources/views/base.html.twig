@@ -65,7 +65,7 @@
                     <div class="trending-ticker">
                         <span class="heading">تازه ها :</span>
                         <ul>
-                        {% for article in theme.latest_articles_text_only %}
+                        {% for article in theme.latest_articles %}
                             <li><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></li>
                         {% endfor %}
                         </ul>
@@ -202,53 +202,7 @@
 
         <div class="wrap"></div>
 
-        <div class="main-featured">
-            <div class="wrap cf">
-                <div class="row">
-                    <div class="slider frame flexslider col-8" data-animation-speed="600" data-animation="fade" data-slide-delay="5000">
-                        <ul class="slides">
-                            {% for article in theme.latest_articles_with_image[0:7] %}
-                            <li>
-                                <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="620" height="330" src="{{ article.image }}" class="attachment-main-slider size-main-slider wp-post-image" alt="{{ article.title }}" title="{{ article.title }}"/></a>
-                                {% if article.categories %}<a href="{{ path('category_url', {'slug': article.categories[0].slug}) }}" class="cat cat-title cat-1">{{ article.categories[0].title }}</a>{% endif %}
-                                <div class="caption">
-                                    <time datetime="{{ item.createdAt }}">{{ item.createdAt|jdate }}</time>
-                                    <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-
-                    </div> <!-- .flexslider -->
-
-                    <div class="blocks col-4">
-                        {% set article = theme.latest_articles_with_image[7:1] %}
-                        {% if article %}
-                        <article class="large">
-                            {% if article.categories %}<span class="cat cat-title cat-1"><a href="{{ path('category_url', {'slug': article.categories[0].slug}) }}">{{ path('category_url', {'slug': article.categories[0].title}) }}</a></span>{% endif %}
-                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
-                        </article>
-                        {% endif %}
-                        {% set article = theme.latest_articles_with_image[8:1] %}
-                        {% if article %}
-                        <article class="small">
-                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
-                        </article>
-                        {% endif %}
-                        {% set article = theme.latest_articles_with_image[9:1] %}
-                        {% if article %}
-                        <article class="small last">
-                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
-                        </article>
-                        {% endif %}
-                    </div>
-
-                </div> <!-- .row -->
-            </div> <!--  .wrap  -->
-        </div>
+        {% block featuredbox %} featuredbox {% endblock %}
 
         <div class="main wrap cf">
             <div class="row">
@@ -263,8 +217,8 @@
                 <ul class="widgets row cf">
                     <li class="widget column bunyad-about">
                         <div class="about-widget">
-                            <p class="logo-text"><span class="main-color">اینور اونور</span> - مجله اینترنتی</p>
-                            <p> مجله اینترنتی اینور اونور با هدف جمع آوری آخرین و بروزترین اخبار و مطالب در زمینه های علمی، فرهنگی، هنری، دنیای فن آوری و غیره در قالب یک مجموعه و در اختیار قرار دادن آن در درستر مخاطبین خود فعالیت خود را آغاز نموده است. امیدواریم با ارسال باز خورد های خود ما را در راه بهتر شدن همراهی نمایید. جهت دریافت برترین مطالب مجله در پست الکترونیک خود میتوانید از طریق فرم زیر در خبرنامه سایت عضو شوید.</p>
+                            <p class="logo-text">عضویت در خبرنامه</p>
+                            <p> مجله اینترنتی اینور اونور با هدف جمع آوری آخرین و بروزترین اخبار و مطالب در زمینه های علمی، فرهنگی، هنری، دنیای فن آوری و غیره در قالب یک مجموعه و در اختیار قرار دادن آن در درستر مخاطبین خود فعالیت خود را آغاز نموده است. امیدواریم با ارسال باز خورد های خود ما را در راه بهتر شدن همراهی نمایید. جهت دریافت گزیده مطالب مجله در پست الکترونیک خود میتوانید از طریق فرم زیر در خبرنامه سایت عضو شوید.</p>
                             <div class="feedburner">
                                 <p class="heading">عضویت در خبرنامه سایت</p>
                                 <form method="post" action="http://feedburner.google.com/fb/a/mailverify">

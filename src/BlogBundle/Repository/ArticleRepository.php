@@ -10,46 +10,62 @@ namespace BlogBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getLatestWithImage($count = 10)
+    /**
+     * @param int $count
+     * @param null $except
+     * @return array
+     */
+    public function getLatestWithImage($count = 10, $except = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
-        return
-            $qb
-                ->select('a')
-                ->from('BlogBundle:Article', 'a')
-                ->join('a.categories', 'c')
-                ->where(
-                    $qb->expr()->andx(
-                        $qb->expr()->isNotNull('a.image')
-                    ))
-                ->orderBy('a.id', 'DESC')
-                ->setFirstResult(0)
-                ->setMaxResults($count)
-                ->getQuery()
-                ->getResult()
-            ;
+        $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->where($qb->expr()->isNotNull('a.image'))
+        ;
+
+        if(is_array($except) && count($except)) {
+            $qb->andWhere($qb->expr()->notIn('a.id', $except));
+        }
+
+        $qb
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults($count)
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 
-    public function getLatestTextOnly($count = 10)
+    /**
+     * @param int $count
+     * @param null $except
+     * @return array
+     */
+    public function getLatestTextOnly($count = 10, $except = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
-        return
-            $qb
-                ->select('a')
-                ->from('BlogBundle:Article', 'a')
-                ->join('a.categories', 'c')
-                ->where(
-                    $qb->expr()->andx(
-                        $qb->expr()->isNull('a.image')
-                    ))
-                ->orderBy('a.id', 'DESC')
-                ->setFirstResult(0)
-                ->setMaxResults($count)
-                ->getQuery()
-                ->getResult()
-            ;
+        $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->where($qb->expr()->isNull('a.image'))
+        ;
+
+        if(is_array($except) && count($except)) {
+            $qb->andWhere($qb->expr()->notIn('a.id', $except));
+        }
+
+        $qb
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults($count)
+        ;
+
+        return $qb->getQuery()->getResult();
     }
     
 }

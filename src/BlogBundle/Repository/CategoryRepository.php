@@ -3,6 +3,7 @@
 namespace BlogBundle\Repository;
 
 use BlogBundle\Entity\Category;
+use DateTime;
 
 /**
  * CategoryRepository
@@ -12,25 +13,97 @@ use BlogBundle\Entity\Category;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getLatestArticlesForMegaMenu(Category $category, $count = 10)
+    /**
+     * @param Category $category
+     * @param int $count
+     * @param null $except
+     * @return array
+     */
+    public function getLatestArticlesWithImage(Category $category, $count = 10, $except = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        
-        return
-            $qb
-                ->select('a')
-                ->from('BlogBundle:Article', 'a')
-                ->join('a.categories', 'c')
-                ->where(
-                    $qb->expr()->andx(
-                        $qb->expr()->isNotNull('a.image'),
-                        $qb->expr()->eq('c.id', $category->getId())
-                    ))
-                ->orderBy('a.id', 'DESC')
-                ->setFirstResult(0)
-                ->setMaxResults($count)
-                ->getQuery()
-                ->getResult()
+
+        $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->where($qb->expr()->isNotNull('a.image'))
         ;
+
+        if(is_array($except) && count($except)) {
+            $qb->andWhere($qb->expr()->notIn('a.id', $except));
+        }
+
+        $qb
+            ->andWhere($qb->expr()->eq('c.id', $category->getId()))
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults($count)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param Category $category
+     * @param int $count
+     * @param null $except
+     * @return array
+     */
+    public function getLatestArticles(Category $category, $count = 10, $except = null)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->where($qb->expr()->eq('c.id', $category->getId()))
+        ;
+
+        if(is_array($except) && count($except)) {
+            $qb->andWhere($qb->expr()->notIn('a.id', $except));
+        }
+
+        $qb
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults($count)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param Category $category
+     * @param DateTime $since
+     * @param int $count
+     * @param null $except
+     * @return array
+     */
+    public function getMostViewedArticles(Category $category, DateTime $since, $count = 10, $except = null)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->where($qb->expr()->gte('a.createdAt', $qb->expr()->literal($since->format('Y-m-d H:i:s'))))
+        ;
+
+        if(is_array($except) && count($except)) {
+            $qb->andWhere($qb->expr()->notIn('a.id', $except));
+        }
+
+        $qb
+            ->andWhere( $qb->expr()->isNotNull('a.image'))
+            ->andWhere($qb->expr()->eq('c.id', $category->getId()))
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults($count)
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }
