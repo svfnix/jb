@@ -14,7 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ControllerWrapper extends Controller
 {
-    public function theme(){
+    /**
+     * @return array
+     */
+    protected function theme(){
 
         $em = $this->getDoctrine()->getManager();
         $items = $em->getRepository('BlogBundle:Category')->findAll();
@@ -30,6 +33,28 @@ class ControllerWrapper extends Controller
         return [
             'categories' => $categories,
             'latest_articles' => $em->getRepository('BlogBundle:Article')->getLatestTextOnly(),
+        ];
+    }
+
+    protected function paging($current, $count, $pp)
+    {
+        $max = ceil($count / $pp);
+
+        $start = $current - 3;
+        if($start < 1){
+            $start = 1;
+        }
+
+        $end = $current + 3;
+        if($end > $max){
+            $end = $max;
+        }
+
+        return [
+            'current' => $current,
+            'max' => $max,
+            'start' => $start,
+            'end' => $end
         ];
     }
 }

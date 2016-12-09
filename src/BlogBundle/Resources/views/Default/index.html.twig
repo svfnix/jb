@@ -11,7 +11,7 @@
                                 <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="620" height="330" src="{{ article.image }}" class="attachment-main-slider size-main-slider wp-post-image" alt="{{ article.title }}" title="{{ article.title }}"/></a>
                                 {% if article.categories %}<a href="{{ path('category_url', {'slug': article.categories[0].slug}) }}" class="cat cat-title cat-1">{{ article.categories[0].title }}</a>{% endif %}
                                 <div class="caption">
-                                    <time datetime="{{ item.createdAt }}">{{ item.createdAt|jdate }}</time>
+                                    <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate }}" itemprop="datePublished">{{ article.createdAt|jdate }}</time>
                                     <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
                                 </div>
                             </li>
@@ -20,25 +20,25 @@
                 </div> <!-- .flexslider -->
                 <div class="blocks col-4">
                     {% set article = featured[7:1] %}
-                    {% if article %}
+                    {% if article|length %}
                         <article class="large">
-                            {% if article.categories %}<span class="cat cat-title cat-1"><a href="{{ path('category_url', {'slug': article.categories[0].slug}) }}">{{ path('category_url', {'slug': article.categories[0].title}) }}</a></span>{% endif %}
-                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
+                            {% if article[0].categories %}<span class="cat cat-title cat-1"><a href="{{ path('category_url', {'slug': article[0].categories[0].slug}) }}">{{ article[0].categories[0].title }}</a></span>{% endif %}
+                            <a href="{{ path('article_url', {'slug': article[0].slug}) }}" class="image-link"><img width="351" height="185" src="{{ article[0].image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
+                            <h3><a href="{{ path('article_url', {'slug': article[0].slug}) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
                         </article>
                     {% endif %}
                     {% set article = featured[8:1] %}
-                    {% if article %}
+                    {% if article|length %}
                         <article class="small">
-                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
+                            <a href="{{ path('article_url', {'slug': article[0].slug}) }}" class="image-link"><img width="351" height="185" src="{{ article[0].image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
+                            <h3><a href="{{ path('article_url', {'slug': article[0].slug}) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
                         </article>
                     {% endif %}
                     {% set article = featured[9:1] %}
-                    {% if article %}
+                    {% if article|length %}
                         <article class="small last">
-                            <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="351" height="185" src="{{ article.image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
+                            <a href="{{ path('article_url', {'slug': article[0].slug}) }}" class="image-link"><img width="351" height="185" src="{{ article[0].image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
+                            <h3><a href="{{ path('article_url', {'slug': article[0].slug}) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
                         </article>
                     {% endif %}
                 </div>
@@ -57,18 +57,18 @@
                             <span class="cat-title larger">
                             <a href="{{ path('category_url', {'slug': section.category.slug}) }}">{{ section.category.title }}</a></span>
                             {% set top = section.latest_with_image[0:1] %}
-                            {% if top %}
+                            {% if top|length %}
                             <article itemscope itemtype="http://schema.org/Article">
-                                <a href="{{ path('article_url', {'slug': top.slug}) }}" title="{{ top.excerpt }}" class="image-link" itemprop="url">
-                                    <img width="350" height="185" src="{{ top.image }}" class="image wp-post-image" alt="{{ top.title }}" title="{{ top.title }}" />
+                                <a href="{{ path('article_url', {'slug': top[0].slug}) }}" title="{{ top[0].excerpt }}" class="image-link" itemprop="url">
+                                    <img width="350" height="185" src="{{ top[0].image }}" class="image wp-post-image" alt="{{ top[0].title }}" title="{{ top[0].title }}" />
                                 </a>
                                 <div class="meta">
-                                    <span class="views">{{ top.views }} بازدید</span>
-                                    <time datetime="{{ top.created_at }}" itemprop="datePublished">{{ top.created_at|jdate }}</time>
+                                    <span class="views">{{ top[0].views|pnum }} بازدید</span>
+                                    <time datetime="{{ top[0].createdAt|date('Y-m-d') }}" title="{{ top[0].createdAt|jdate }}" itemprop="datePublished">{{ top[0].createdAt|jdate }}</time>
                                 </div>
-                                <h2 itemprop="name"><a href="{{ path('article_url', {'slug': top.slug}) }}" title="{{ top.excerpt }}">{{ top.title }}</a></h2>
+                                <h2 itemprop="name"><a href="{{ path('article_url', {'slug': top[0].slug}) }}" title="{{ top[0].excerpt }}">{{ top[0].title }}</a></h2>
                                 <div class="excerpt">
-                                    <p>{{ top.excerpt }}</p>
+                                    <p>{{ top[0].excerpt }}</p>
                                 </div>
                             </article>
                             {% endif %}
@@ -85,10 +85,10 @@
                             <ul class="block posts-list thumb">
                                 {% for article in section.latest_with_image[1:7] %}
                                 <li>
-                                    <span class="views">{{ article.views }} بازدید</span>
+                                    <span class="views">{{ article.views|pnum }} بازدید</span>
                                     <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
                                     <div class="content">
-                                        <time datetime="{{ top.created_at }}" itemprop="datePublished">{{ top.created_at|jdate }}</time>
+                                        <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate }}" itemprop="datePublished">{{ article.createdAt|jdate }}</time>
                                         <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
                                     </div>
                                 </li>
@@ -102,10 +102,10 @@
                             <ul class="block posts-list thumb">
                                 {% for article in section.most_viewed[0:7] %}
                                     <li>
-                                        <span class="views">{{ article.views }} بازدید</span>
+                                        <span class="views">{{ article.views|pnum }} بازدید</span>
                                         <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
                                         <div class="content">
-                                            <time datetime="{{ top.created_at }}" itemprop="datePublished">{{ top.created_at|jdate }}</time>
+                                            <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate }}" itemprop="datePublished">{{ article.createdAt|jdate }}</time>
                                             <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
                                         </div>
                                     </li>

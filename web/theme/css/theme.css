@@ -3777,10 +3777,3 @@ body {
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
-
-.basecolumn{
-	width: 40% !important;
-}
-.subcolumn{
-	width: 30% !important;
-}

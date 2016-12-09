@@ -1,6 +1,8 @@
 <?php
 
 namespace BlogBundle\Repository;
+use BlogBundle\Entity\Article;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ArticleRepository
@@ -12,10 +14,11 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
      * @param int $count
+     * @param int $start
      * @param null $except
-     * @return array
+     * @return Paginator
      */
-    public function getLatestWithImage($count = 10, $except = null)
+    public function getLatestWithImage($count = 10, $start = 0, $except = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -23,6 +26,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
             ->select('a')
             ->from('BlogBundle:Article', 'a')
             ->join('a.categories', 'c')
+            ->join('a.tags', 't')
             ->where($qb->expr()->isNotNull('a.image'))
         ;
 
@@ -32,19 +36,20 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 
         $qb
             ->orderBy('a.id', 'DESC')
-            ->setFirstResult(0)
+            ->setFirstResult($start)
             ->setMaxResults($count)
         ;
 
-        return $qb->getQuery()->getResult();
+        return new Paginator($qb->getQuery());
     }
 
     /**
      * @param int $count
+     * @param int $start
      * @param null $except
-     * @return array
+     * @return Paginator
      */
-    public function getLatestTextOnly($count = 10, $except = null)
+    public function getLatestTextOnly($count = 10, $start = 0, $except = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -52,6 +57,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
             ->select('a')
             ->from('BlogBundle:Article', 'a')
             ->join('a.categories', 'c')
+            ->join('a.tags', 't')
             ->where($qb->expr()->isNull('a.image'))
         ;
 
@@ -61,11 +67,73 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 
         $qb
             ->orderBy('a.id', 'DESC')
-            ->setFirstResult(0)
+            ->setFirstResult($start)
             ->setMaxResults($count)
         ;
 
-        return $qb->getQuery()->getResult();
+        return new Paginator($qb->getQuery());
+    }
+
+    /**
+     * @param Article $article
+     * @return array
+     */
+    public function getArticleBefore(Article $article)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->join('a.tags', 't')
+            ->where($qb->expr()->lt('a.id', $article->getId()))
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @param Article $article
+     * @return array
+     */
+    public function getArticleAfter(Article $article)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->join('a.tags', 't')
+            ->where($qb->expr()->gt('a.id', $article->getId()))
+            ->orderBy('a.id', 'ASC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    
+    public function getRelatedArticles(Article $article, $count)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->join('a.tags', 't')
+            ->where($qb->expr()->isMemberOf())
+            ->orderBy('a.id', 'ASC')
+            ->setFirstResult(0)
+            ->setMaxResults($count)
+            ->getQuery()
+            ->getResult()
+            ;
     }
     
 }

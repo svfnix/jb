@@ -78,11 +78,6 @@ class DefaultController extends Controller
             }
         }
 
-        $cat = $em->getRepository('BlogBundle:Category')->find((int) $request->request->get('cats'));
-        if($cat) {
-            $article->addCategory($cat);
-        }
-
         $tags = $request->request->get('tags');
         $tags = explode(',', $tags);
         foreach($tags as $tag) {
@@ -96,6 +91,19 @@ class DefaultController extends Controller
                 }
                 $article->addTag($tag_object);
             }
+        }
+
+        if ($request->request->has('cats')) {
+            $cats = $request->request->get('cats');
+            $cats = explode(',', $cats);
+            foreach($cats as $cat) {
+                $cat = $em->getRepository('BlogBundle:Category')->find(intval($cat));
+                if ($cat) {
+                    $article->addCategory($cat);
+                }
+            }
+        } else {
+            $em->getRepository('BlogBundle:Keyword')->extractArticleCategories($article);
         }
 
         $em->flush();

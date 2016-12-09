@@ -5,6 +5,7 @@ namespace BlogBundle\Entity;
 use BlogBundle\Entity\Article;
 use BlogBundle\Wrapper\EntityWrapper;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,11 +38,6 @@ class Tag extends EntityWrapper
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Article", mappedBy="tags")
-     */
-    private $articles;
 
     /**
      * Constructor
@@ -107,39 +103,5 @@ class Tag extends EntityWrapper
     public function getSlug()
     {
         return $this->slug;
-    }
-
-    /**
-     * Add article
-     *
-     * @param Article $article
-     *
-     * @return Tag
-     */
-    public function addArticle(Article $article)
-    {
-        $this->articles[] = $article;
-
-        return $this;
-    }
-
-    /**
-     * Remove article
-     *
-     * @param Article $article
-     */
-    public function removeArticle(Article $article)
-    {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticles()
-    {
-        return $this->articles;
     }
 }

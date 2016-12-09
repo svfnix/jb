@@ -4,6 +4,7 @@ namespace BlogBundle\Repository;
 
 use BlogBundle\Entity\Category;
 use DateTime;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * CategoryRepository
@@ -16,10 +17,11 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @param Category $category
      * @param int $count
+     * @param int $start
      * @param null $except
-     * @return array
+     * @return Paginator
      */
-    public function getLatestArticlesWithImage(Category $category, $count = 10, $except = null)
+    public function getLatestArticlesWithImage(Category $category, $count = 10, $start = 0, $except = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -27,6 +29,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->select('a')
             ->from('BlogBundle:Article', 'a')
             ->join('a.categories', 'c')
+            ->join('a.tags', 't')
             ->where($qb->expr()->isNotNull('a.image'))
         ;
 
@@ -37,20 +40,22 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
         $qb
             ->andWhere($qb->expr()->eq('c.id', $category->getId()))
             ->orderBy('a.id', 'DESC')
-            ->setFirstResult(0)
+            ->setFirstResult($start)
             ->setMaxResults($count)
         ;
 
-        return $qb->getQuery()->getResult();
+
+        return new Paginator($qb->getQuery());
     }
 
     /**
      * @param Category $category
      * @param int $count
+     * @param int $start
      * @param null $except
-     * @return array
+     * @return Paginator
      */
-    public function getLatestArticles(Category $category, $count = 10, $except = null)
+    public function getLatestArticles(Category $category, $count = 10, $start = 0, $except = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -58,6 +63,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->select('a')
             ->from('BlogBundle:Article', 'a')
             ->join('a.categories', 'c')
+            ->join('a.tags', 't')
             ->where($qb->expr()->eq('c.id', $category->getId()))
         ;
 
@@ -67,21 +73,23 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
 
         $qb
             ->orderBy('a.id', 'DESC')
-            ->setFirstResult(0)
+            ->setFirstResult($start)
             ->setMaxResults($count)
         ;
 
-        return $qb->getQuery()->getResult();
+
+        return new Paginator($qb->getQuery());
     }
 
     /**
      * @param Category $category
      * @param DateTime $since
      * @param int $count
+     * @param int $start
      * @param null $except
-     * @return array
+     * @return Paginator
      */
-    public function getMostViewedArticles(Category $category, DateTime $since, $count = 10, $except = null)
+    public function getMostViewedArticles(Category $category, DateTime $since, $count = 10, $start = 0, $except = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -89,6 +97,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->select('a')
             ->from('BlogBundle:Article', 'a')
             ->join('a.categories', 'c')
+            ->join('a.tags', 't')
             ->where($qb->expr()->gte('a.createdAt', $qb->expr()->literal($since->format('Y-m-d H:i:s'))))
         ;
 
@@ -97,13 +106,14 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb
-            ->andWhere( $qb->expr()->isNotNull('a.image'))
+            ->andWhere($qb->expr()->isNotNull('a.image'))
             ->andWhere($qb->expr()->eq('c.id', $category->getId()))
             ->orderBy('a.id', 'DESC')
-            ->setFirstResult(0)
+            ->setFirstResult($start)
             ->setMaxResults($count)
         ;
 
-        return $qb->getQuery()->getResult();
+
+        return new Paginator($qb->getQuery());
     }
 }

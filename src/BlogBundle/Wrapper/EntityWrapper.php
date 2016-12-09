@@ -12,28 +12,9 @@ class EntityWrapper
 {
     public function slugify($text)
     {
-        // replace non letter or digits by -
-        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
 
-        // trim
-        $text = trim($text, '-');
-
-        // transliterate
-        if (function_exists('iconv'))
-        {
-            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-        }
-
-        // lowercase
-        $text = strtolower($text);
-
-        // remove unwanted characters
-        $text = preg_replace('#[^-\w]+#', '', $text);
-
-        if (empty($text))
-        {
-            return 'n-a';
-        }
+        $text = mb_ereg_replace('[^a-zA-z0-9\آ\ا\أ\إ\ب\پ\ت\ث\ج\چ\ح\خ\د\ذ\ر\ز\ژ\س\ش\ص\ض\ط\ظ\ع\غ\ف\ق\ك\ک\گ\ل\م\ن\و\ؤ\ه\ي\ی\ئ\ء]+', '-', $text);
+        $text - preg_replace('/[-]+/', '-', $text);
 
         return $text;
     }

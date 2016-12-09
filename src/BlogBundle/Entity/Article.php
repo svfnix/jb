@@ -69,13 +69,13 @@ class Article extends EntityWrapper
     private $content;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="articles")
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      * @ORM\JoinTable(name="articles_tags")
      */
     private $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category")
+     * @ORM\ManyToMany(targetEntity="Category", cascade={"persist"})
      * @ORM\JoinTable(name="articles_categories")
      */
     private $categories;
@@ -114,7 +114,7 @@ class Article extends EntityWrapper
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-        $this->cats = new ArrayCollection();
+        $this->categories = new ArrayCollection();
         $this->createdAt = new DateTime();
     }
 
@@ -377,8 +377,9 @@ class Article extends EntityWrapper
      */
     public function addTag(Tag $tag)
     {
-        $tag->addArticle($this);
-        $this->tags[] = $tag;
+        if(!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
 
         return $this;
     }
@@ -390,7 +391,6 @@ class Article extends EntityWrapper
      */
     public function removeTag(Tag $tag)
     {
-        $tag->removeArticle($this);
         $this->tags->removeElement($tag);
     }
 
@@ -413,7 +413,9 @@ class Article extends EntityWrapper
      */
     public function addCategory(Category $category)
     {
-        $this->categories[] = $category;
+        if(!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
 
         return $this;
     }

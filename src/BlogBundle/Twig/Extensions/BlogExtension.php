@@ -18,43 +18,44 @@ class BlogExtension extends Twig_Extension
     public function getFilters()
     {
         return array(
-            'created_ago' => new Twig_Filter_Method($this, 'createdAgo'),
+            'pnum' => new Twig_Filter_Method($this, 'pnum'),
+            'enum' => new Twig_Filter_Method($this, 'enum'),
         );
     }
 
-    public function createdAgo(DateTime $dateTime)
+    public function pnum($input)
     {
-        $delta = time() - $dateTime->getTimestamp();
-        if ($delta < 0)
-            throw new InvalidArgumentException("createdAgo is unable to handle dates in the future");
 
-        $duration = "";
-        if ($delta < 60)
-        {
-            // Seconds
-            $time = $delta;
-            $duration = $time . " second" . (($time > 1) ? "s" : "") . " ago";
-        }
-        else if ($delta <= 3600)
-        {
-            // Mins
-            $time = floor($delta / 60);
-            $duration = $time . " minute" . (($time > 1) ? "s" : "") . " ago";
-        }
-        else if ($delta <= 86400)
-        {
-            // Hours
-            $time = floor($delta / 3600);
-            $duration = $time . " hour" . (($time > 1) ? "s" : "") . " ago";
-        }
-        else
-        {
-            // Days
-            $time = floor($delta / 86400);
-            $duration = $time . " day" . (($time > 1) ? "s" : "") . " ago";
-        }
+        $input = str_replace('1', '۱', $input);
+        $input = str_replace('2', '۲', $input);
+        $input = str_replace('3', '۳', $input);
+        $input = str_replace('4', '۴', $input);
+        $input = str_replace('5', '۵', $input);
+        $input = str_replace('6', '۶', $input);
+        $input = str_replace('7', '۷', $input);
+        $input = str_replace('8', '۸', $input);
+        $input = str_replace('9', '۹', $input);
+        $input = str_replace('0', '۰', $input);
 
-        return $duration;
+        return $input;
+
+    }
+
+    public function enum($input)
+    {
+        $input = str_replace('۱', '1', $input);
+        $input = str_replace('۲', '2', $input);
+        $input = str_replace('۳', '3', $input);
+        $input = str_replace('۴', '4', $input);
+        $input = str_replace('۵', '5', $input);
+        $input = str_replace('۶', '6', $input);
+        $input = str_replace('۷', '7', $input);
+        $input = str_replace('۸', '8', $input);
+        $input = str_replace('۹', '9', $input);
+        $input = str_replace('۰', '0', $input);
+
+        return $input;
+
     }
 
     public function getName()

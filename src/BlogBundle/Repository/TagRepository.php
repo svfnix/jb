@@ -10,4 +10,37 @@ namespace BlogBundle\Repository;
  */
 class TagRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     * @param Tag $tag
+     * @param int $count
+     * @param int $start
+     * @param null $except
+     * @return Paginator
+     */
+    public function getLatestArticles(Tag $tag, $count = 10, $start = 0, $except = null)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb
+            ->select('a')
+            ->from('BlogBundle:Article', 'a')
+            ->join('a.categories', 'c')
+            ->join('a.tags', 't')
+            ->where($qb->expr()->eq('t.id', $tag->getId()))
+        ;
+
+        if(is_array($except) && count($except)) {
+            $qb->andWhere($qb->expr()->notIn('a.id', $except));
+        }
+
+        $qb
+            ->orderBy('a.id', 'DESC')
+            ->setFirstResult($start)
+            ->setMaxResults($count)
+        ;
+
+
+        return new Paginator($qb->getQuery());
+    }
 }

@@ -327,3 +327,10 @@ a.pp_close,a.pp_expand,a.pp_contract {
 	padding-right: 10px;
 	padding-left: 10px;
 }
+
+.basecolumn{
+	width: 34% !important;
+}
+.subcolumn{
+	width: 33% !important;
+}
