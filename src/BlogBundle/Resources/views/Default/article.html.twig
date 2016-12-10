@@ -19,21 +19,22 @@
 
             <div class="post-meta">
                 <span class="cats">ارسال شده در : {% for category in article.categories %}<a href="{{ path('category_url', {slug: category.slug}) }}">{{ category.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span> |
-                <span class="posted-on">
-                    <span class="dtreviewed">
-                        <time class="value-title" datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate }}" itemprop="datePublished">{{ article.createdAt|jdate }}</time>
-                    </span>
-                </span> |
                 <span class="source">منبع : <a href="{{ article.sourceUrl }}" target="_blank" rel="nofollow">{{ article.source }}</a></span>
-                <span class="views">{{ article.views|pnum }} بازدید</span>
+
+                <span class="leftside">
+                    <span class="dtreviewed">
+                        <time class="value-title" datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
+                    </span> |
+                    <span class="views">{{ article.views|pnum }} بازدید</span>
+                </span>
             </div>
 
             <div class="post-container cf">
                 <div class="post-content-right">
                     <div class="post-content description " itemprop="articleBody">
                         <p>{{ article.excerpt }}</p>
-                        {{ article.content }}
-                        <div class="tagcloud">{% for tag in article.tags %}<a href="{{ path('tag_url', {slug: tag.slug}) }}">{{ tag.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</div>
+                        {{ article.content|raw }}
+                        <div class="tagcloud">{% for tag in article.tags %}<a href="{{ path('tag_url', {slug: tag.slug}) }}">{{ tag.title }}</a>{% endfor %}</div>
                     </div>
                 </div>
 
@@ -42,24 +43,24 @@
         </article>
 
         <section class="navigate-posts">
-            {% if article_before %}
+            {% if article_before|length %}
             <div class="previous">
                 <span class="main-color title"><i class="fa fa-chevron-left"></i> نوشته قبلی</span>
                 <span class="link">
-                    <a href="{{ path('article_url', {slug: article_before.slug}) }}" title="{{ article_before.excerpt }}" rel="prev">{{ article_before.title }}</a>
+                    <a href="{{ path('article_url', {slug: article_before[0].slug}) }}" title="{{ article_before[0].excerpt }}" rel="prev">{{ article_before[0].title }}</a>
                 </span>
             </div>
             {% endif %}
-            {% if article_next %}
+            {% if article_after|length %}
             <div class="next">
                 <span class="main-color title">مقاله بعدی <i class="fa fa-chevron-right"></i></span>
                 <span class="link">
-                    <a href="{{ path('article_url', {slug: article_next.slug}) }}" title="{{ article_next.excerpt }}" rel="prev">{{ article_next.title }}</a>
+                    <a href="{{ path('article_url', {slug: article_after[0].slug}) }}" title="{{ article_after[0].excerpt }}" rel="prev">{{ article_after[0].title }}</a>
                 </span>
             </div>
             {% endif %}
         </section>
-
+        {% if article_related|length %}
         <section class="related-posts">
             <h3 class="section-head">نوشته های مرتبط</h3>
             <ul class="highlights-box three-col related-posts">
@@ -70,7 +71,7 @@
                             <img src="{{ article.image }}" class="image wp-post-image no-display appear" alt="{{ article.title }}" title="{{ article.title }}"width="214" height="140">
                         </a>
                         <div class="meta">
-                            <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate }}" itemprop="datePublished">{{ article.createdAt|jdate }}</time>
+                            <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
 					        <span class="views">{{ article.views|pnum }} بازدید</span>
                         </div>
                         <h2><a href="{{ path('article_url', {slug: article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h2>
@@ -79,6 +80,7 @@
                 {% endfor %}
             </ul>
         </section>
+        {% endif %}
 
     </div>
     <aside class="col-4 sidebar">
@@ -86,10 +88,10 @@
         <ul class="block posts-list thumb">
             {% for article in latest_with_image %}
                 <li>
-                    <span class="views">{{ article.views|pnum }} بازدید</span>
+                    <span class="leftside views">{{ article.views|pnum }} بازدید</span>
                     <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
                     <div class="content">
-                        <time datetime="{{ article.createdAt|date('Y-m-d') }}" itemprop="datePublished">{{ article.createdAt|jdate }}</time>
+                        <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
                         <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
                     </div>
                 </li>

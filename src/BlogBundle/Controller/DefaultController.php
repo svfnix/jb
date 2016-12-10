@@ -121,15 +121,15 @@ class DefaultController extends ControllerWrapper
         $em = $this->getDoctrine()->getManager();
         $latest_with_image = $em->getRepository('BlogBundle:Article')->getLatestWithImage(15);
         $article_before = $em->getRepository('BlogBundle:Article')->getArticleBefore($article);
-        $article_next = $em->getRepository('BlogBundle:Article')->getArticleNext($article);
-        $article_related = $em->getRepository('BlogBundle:Article')->getRelatedArticles($article);
+        $article_after = $em->getRepository('BlogBundle:Article')->getArticleAfter($article);
+        $article_related = $em->getRepository('BlogBundle:Article')->getRelatedArticlesByCategory($article, 3);
 
-        return $this->render('BlogBundle:Default:tag.html.twig', [
+        return $this->render('BlogBundle:Default:article.html.twig', [
             'theme' => $this->theme(),
             'article' => $article,
             'latest_with_image' => $latest_with_image,
             'article_before' => $article_before,
-            'article_next' => $article_next,
+            'article_after' => $article_after,
             'article_related' => $article_related
         ]);
     }

@@ -151,7 +151,7 @@
                                                             <img width="351" height="185" src="{{ item.image }}" class="image wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" />
                                                         </a>
                                                         <div class="meta">
-                                                            <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate }}" itemprop="datePublished">{{ item.createdAt|jdate }}</time>
+                                                            <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ item.createdAt|jdate('l d F Y') }}</time>
                                                             <span class="views">{{ item.views|pnum }} بازدید</span>
                                                         </div>
                                                         <h2><a href="{{ path('article_url', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a></h2>
@@ -168,7 +168,7 @@
                                                         <a href="{{ path('article_url', {'slug': item.slug}) }}"><img width="110" height="96" src="{{ item.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" /></a>
                                                         <div class="content">
                                                             <span class="views">{{ item.views|pnum }} بازدید</span>
-                                                            <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate }}" itemprop="datePublished">{{ item.createdAt|jdate }}</time>
+                                                            <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ item.createdAt|jdate('l d F Y') }}</time>
                                                             <a href="{{ path('article_url', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a>
                                                         </div>
                                                     </div>
@@ -180,7 +180,7 @@
                                                         <a href="{{ path('article_url', {'slug': item.slug}) }}"><img width="110" height="96" src="{{ item.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" /></a>
                                                         <div class="content">
                                                             <span class="views">{{ item.views|pnum }} بازدید</span>
-                                                            <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate }}" itemprop="datePublished">{{ item.createdAt|jdate }}</time>
+                                                            <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ item.createdAt|jdate('l d F Y') }}</time>
                                                             <a href="{{ path('article_url', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a>
                                                         </div>
                                                     </div>

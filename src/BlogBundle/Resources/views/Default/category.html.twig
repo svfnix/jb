@@ -15,8 +15,8 @@
                     </a>
 
                     <div class="meta">
-                        <span class="views">{{ article.views|pnum }} بازدید</span>
-                        <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate }}" itemprop="datePublished">{{ article.createdAt|jdate }}</time>
+                        <span class="leftside views">{{ article.views|pnum }} بازدید</span>
+                        <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
                     </div>
 
                     <h2 itemprop="name"><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}" itemprop="url">{{ article.title }}</a></h2>
@@ -74,10 +74,10 @@
         <ul class="block posts-list thumb">
             {% for article in latest_with_image %}
                 <li>
-                    <span class="views">{{ article.views|pnum }} بازدید</span>
+                    <span class="leftside views">{{ article.views|pnum }} بازدید</span>
                     <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
                     <div class="content">
-                        <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate }}" itemprop="datePublished">{{ article.createdAt|jdate }}</time>
+                        <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
                         <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
                     </div>
                 </li>

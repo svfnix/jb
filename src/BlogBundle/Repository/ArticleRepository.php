@@ -118,16 +118,21 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
             ;
     }
     
-    public function getRelatedArticles(Article $article, $count)
+    public function getRelatedArticlesByCategory(Article $article, $count)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $cats = [];
+        foreach ($article->getCategories() as $cat){
+            $cats = $cat->getId();
+        }
 
         return $qb
             ->select('a')
             ->from('BlogBundle:Article', 'a')
             ->join('a.categories', 'c')
             ->join('a.tags', 't')
-            ->where($qb->expr()->isMemberOf())
+            ->where($qb->expr()->in('a.id', $cats))
             ->orderBy('a.id', 'ASC')
             ->setFirstResult(0)
             ->setMaxResults($count)

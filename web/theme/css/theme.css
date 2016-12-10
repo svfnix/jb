@@ -1306,9 +1306,9 @@ body.boxed { background: #eee; }
 		background: #e54e53; 
 		text-decoration: none;
 	}
- 
 
-.gallery-title, .section-head { 
+
+.gallery-title, .section-head {
  	background: #f9f9f9;
 	border: 1px solid #d9d9d9;
 	border-right: 0;
@@ -1649,7 +1649,6 @@ hr.half { margin-top: 0; }
 	margin-right: 90px;
 	line-height: 1;
 	min-height: 75px;
-	text-align: justify;
 }
 
 .posts-list li:first-child { 
@@ -2399,6 +2398,7 @@ h3.gallery-title {
 	padding-right: 18px;
 	margin-left: 35px;
 	float: right;
+	margin-bottom: 30px;
 }
 
 .post-header .post-title:before {
@@ -2920,7 +2920,7 @@ h3.gallery-title {
 	margin-bottom: 28px; /* 3em */	
 }
 
-.related-posts .section-head { color: #e54e53; }
+.related-posts .section-head { color: #19232d; font-size: 15px }
 
 .related-posts ul { overflow: hidden; }
 .related-posts li { float: right; }

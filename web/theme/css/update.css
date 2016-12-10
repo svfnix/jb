@@ -286,10 +286,12 @@ a.pp_close,a.pp_expand,a.pp_contract {
 .post-meta .cats {
 	float: none;
 }
+.leftside {
+	float: left;
+}
 .posts-list .views,
 .post-meta .views,
 .meta .views {
-	float: left;
 	font-size:11px;
 	color:#a6a6a6;
 }
