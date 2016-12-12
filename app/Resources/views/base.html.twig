@@ -15,7 +15,7 @@
 
     <meta property="og:locale" content="fa_IR"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:url" content="{{ block('permalink') }}"/>
+    <meta property="og:url" content="{{ absolute_url(path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))) }}"/>
     <meta property="og:title" content="{{ block('title') }}"/>
     <meta property="og:description" content="{{ block('description') }}"/>
 
@@ -25,7 +25,7 @@
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:title" content="{{ block('title') }}"/>
     <meta name="twitter:description" content="{{ block('description') }}"/>
-    <meta name="twitter:url" content="{{ block('permalink') }}"/>
+    <meta name="twitter:url" content="{{ absolute_url(path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))) }}"/>
 
     <link rel="alternate" type="application/rss+xml" title="خبری خوراک" href="http://{{ domain }}/feed/" />
 
@@ -66,7 +66,7 @@
                         <span class="heading">تازه ها :</span>
                         <ul>
                         {% for article in theme.latest_articles %}
-                            <li><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></li>
+                            <li><a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}">{{ article.title }}</a></li>
                         {% endfor %}
                         </ul>
                     </div>
@@ -80,10 +80,10 @@
 
                     <div class="textwidget">
                         <ul class="social-icons cf">
-                            <li><a rel="nofollow" href="https://twitter.com/home?status={{ block('permalink') }}" class="icon fa fa-twitter" title="به اشتراک گذاری در توییتر"><span class="visuallyhidden">توییتر</span></a></li>
-                            <li><a rel="nofollow" href="https://www.facebook.com/sharer/sharer.php?u={{ block('permalink') }}" class="icon fa fa-facebook" title="به اشتراک گذاری در فیس بوک"><span class="visuallyhidden">فیس بوک</span></a></li>
-                            <li><a rel="nofollow" href="https://www.linkedin.com/shareArticle?mini=true&url={{ block('permalink') }}" class="icon fa fa-linkedin" title="به اشتراک گذاری در لینکدین"><span class="visuallyhidden">لینکدین</span></a></li>
-                            <li><a rel="nofollow" href="https://plus.google.com/share?url={{ block('permalink') }}" class="icon fa fa-google-plus" title="به اشتراک گذاری در گوگل پلاس"><span class="visuallyhidden">گوگل پلاس</span></a></li>
+                            <li><a rel="nofollow" href="https://twitter.com/home?status={{ absolute_url(path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')))|e('url') }}" class="icon fa fa-twitter" title="به اشتراک گذاری در توییتر"><span class="visuallyhidden">توییتر</span></a></li>
+                            <li><a rel="nofollow" href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')))|e('url') }}" class="icon fa fa-facebook" title="به اشتراک گذاری در فیس بوک"><span class="visuallyhidden">فیس بوک</span></a></li>
+                            <li><a rel="nofollow" href="https://www.linkedin.com/shareArticle?mini=true&url={{ absolute_url(path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')))|e('url') }}" class="icon fa fa-linkedin" title="به اشتراک گذاری در لینکدین"><span class="visuallyhidden">لینکدین</span></a></li>
+                            <li><a rel="nofollow" href="https://plus.google.com/share?url={{ absolute_url(path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')))|e('url') }}" class="icon fa fa-google-plus" title="به اشتراک گذاری در گوگل پلاس"><span class="visuallyhidden">گوگل پلاس</span></a></li>
                         </ul>
                     </div>
 
@@ -138,7 +138,7 @@
                             </li>
 
                             {% for catitem in theme.categories %}
-                            <li id="menu-item-2624" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-208 menu-item-2624"><a href="{{ path('category_url', {'slug': catitem.category.slug}) }}">{{ catitem.category.title }}</a>
+                            <li id="menu-item-2624" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-208 menu-item-2624"><a href="{{ absolute_url(path('category_url', {'slug': catitem.category.slug})) }}">{{ catitem.category.title }}</a>
                                 <div class="mega-menu row">
                                     <div class="col-12 extend">
 
@@ -147,14 +147,14 @@
                                             <div class="highlights">
                                                 {% for item in catitem.items[0:1] %}
                                                     <article>
-                                                        <a href="{{ path('article_url', {'slug': item.slug}) }}" title="{{ item.excerpt }}" class="image-link">
-                                                            <img width="351" height="185" src="{{ item.image }}" class="image wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" />
+                                                        <a href="{{ absolute_url(path('article_url', {'slug': item.slug})) }}" title="{{ item.excerpt }}" class="image-link">
+                                                            <img width="351" height="185" src="{{ item.image|replace({'{size}': '351x185'}) }}" class="image wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" />
                                                         </a>
                                                         <div class="meta">
                                                             <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ item.createdAt|jdate('l d F Y') }}</time>
                                                             <span class="views">{{ item.views|pnum }} بازدید</span>
                                                         </div>
-                                                        <h2><a href="{{ path('article_url', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a></h2>
+                                                        <h2><a href="{{ absolute_url(path('article_url', {'slug': item.slug})) }}" title="{{ item.excerpt }}">{{ item.title }}</a></h2>
                                                     </article>
                                                 {% endfor %}
                                             </div>
@@ -165,11 +165,11 @@
                                             <div class="posts-list col-6">
                                                 {% for item in catitem.items[1:3] %}
                                                     <div class="post">
-                                                        <a href="{{ path('article_url', {'slug': item.slug}) }}"><img width="110" height="96" src="{{ item.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" /></a>
+                                                        <a href="{{ absolute_url(path('article_url', {'slug': item.slug})) }}"><img width="100" height="100" src="{{ item.thumbnail }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" /></a>
                                                         <div class="content">
                                                             <span class="views">{{ item.views|pnum }} بازدید</span>
                                                             <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ item.createdAt|jdate('l d F Y') }}</time>
-                                                            <a href="{{ path('article_url', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a>
+                                                            <a href="{{ absolute_url(path('article_url', {'slug': item.slug})) }}" title="{{ item.excerpt }}">{{ item.title }}</a>
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -177,11 +177,11 @@
                                             <div class="posts-list col-6">
                                                 {% for item in catitem.items[4:3] %}
                                                     <div class="post">
-                                                        <a href="{{ path('article_url', {'slug': item.slug}) }}"><img width="110" height="96" src="{{ item.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" /></a>
+                                                        <a href="{{ absolute_url(path('article_url', {'slug': item.slug})) }}"><img width="100" height="100" src="{{ item.thumbnail }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ item.title }}" title="{{ item.title }}" /></a>
                                                         <div class="content">
                                                             <span class="views">{{ item.views|pnum }} بازدید</span>
                                                             <time datetime="{{ item.createdAt|date('Y-m-d') }}" title="{{ item.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ item.createdAt|jdate('l d F Y') }}</time>
-                                                            <a href="{{ path('article_url', {'slug': item.slug}) }}" title="{{ item.excerpt }}">{{ item.title }}</a>
+                                                            <a href="{{ absolute_url(path('article_url', {'slug': item.slug})) }}" title="{{ item.excerpt }}">{{ item.title }}</a>
                                                         </div>
                                                     </div>
                                                 {% endfor %}

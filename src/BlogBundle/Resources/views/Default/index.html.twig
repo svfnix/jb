@@ -6,39 +6,45 @@
             <div class="row">
                 <div class="slider frame flexslider col-8" data-animation-speed="600" data-animation="fade" data-slide-delay="5000">
                     <ul class="slides">
-                        {% for article in featured[0:7] %}
+                        {% set count = featured|length > 5 ? 5 : featured|length %}
+                        {% for article in featured[0:5] %}
                             <li>
-                                <a href="{{ path('article_url', {'slug': article.slug}) }}" class="image-link"><img width="620" height="330" src="{{ article.image }}" class="attachment-main-slider size-main-slider wp-post-image" alt="{{ article.title }}" title="{{ article.title }}"/></a>
-                                {% if article.categories %}<a href="{{ path('category_url', {'slug': article.categories[0].slug}) }}" class="cat cat-title cat-1">{{ article.categories[0].title }}</a>{% endif %}
+                                <a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" class="image-link"><img width="620" height="330" src="{{ article.image|replace({'{size}': '700x330'}) }}" class="attachment-main-slider size-main-slider wp-post-image" alt="{{ article.title }}" title="{{ article.title }}"/></a>
+                                {% if article.categories %}<a href="{{ absolute_url(path('category_url', {'slug': article.categories[0].slug})) }}" class="cat cat-title cat-1">{{ article.categories[0].title }}</a>{% endif %}
                                 <div class="caption">
                                     <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
-                                    <h3><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
+                                    <h3><a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}">{{ article.title }}</a></h3>
                                 </div>
                             </li>
                         {% endfor %}
                     </ul>
-                </div> <!-- .flexslider -->
+                    <div class="pages" data-number="{{ count }}">
+                        {% for i in 1..count %}
+                        <a href="javascript:void(0)"></a>
+                        {% endfor %}
+                    </div>
+                </div>
                 <div class="blocks col-4">
-                    {% set article = featured[7:1] %}
+                    {% set article = featured[5:1] %}
                     {% if article|length %}
                         <article class="large">
-                            {% if article[0].categories %}<span class="cat cat-title cat-1"><a href="{{ path('category_url', {'slug': article[0].categories[0].slug}) }}">{{ article[0].categories[0].title }}</a></span>{% endif %}
-                            <a href="{{ path('article_url', {'slug': article[0].slug}) }}" class="image-link"><img width="351" height="185" src="{{ article[0].image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article[0].slug}) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
+                            {% if article[0].categories %}<span class="cat cat-title cat-1"><a href="{{ absolute_url(path('category_url', {'slug': article[0].categories[0].slug})) }}">{{ article[0].categories[0].title }}</a></span>{% endif %}
+                            <a href="{{ absolute_url(path('article_url', {'slug': article[0].slug})) }}" class="image-link"><img width="351" height="185" src="{{ article[0].image|replace({'{size}': '351x185'}) }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
+                            <h3><a href="{{ absolute_url(path('article_url', {'slug': article[0].slug})) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
                         </article>
                     {% endif %}
-                    {% set article = featured[8:1] %}
+                    {% set article = featured[6:1] %}
                     {% if article|length %}
                         <article class="small">
-                            <a href="{{ path('article_url', {'slug': article[0].slug}) }}" class="image-link"><img width="351" height="185" src="{{ article[0].image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article[0].slug}) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
+                            <a href="{{ absolute_url(path('article_url', {'slug': article[0].slug})) }}" class="image-link"><img width="168" height="137" src="{{ article[0].image|replace({'{size}': '168x137'}) }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
+                            <h3><a href="{{ absolute_url(path('article_url', {'slug': article[0].slug})) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
                         </article>
                     {% endif %}
-                    {% set article = featured[9:1] %}
+                    {% set article = featured[7:1] %}
                     {% if article|length %}
                         <article class="small last">
-                            <a href="{{ path('article_url', {'slug': article[0].slug}) }}" class="image-link"><img width="351" height="185" src="{{ article[0].image }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
-                            <h3><a href="{{ path('article_url', {'slug': article[0].slug}) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
+                            <a href="{{ absolute_url(path('article_url', {'slug': article[0].slug})) }}" class="image-link"><img width="168" height="137" src="{{ article[0].image|replace({'{size}': '168x137'}) }}" class="attachment-main-block size-main-block wp-post-image" alt="{{ article[0].title }}" title="{{ article[0].title }}" /></a>
+                            <h3><a href="{{ absolute_url(path('article_url', {'slug': article[0].slug})) }}" title="{{ article[0].excerpt }}">{{ article[0].title }}</a></h3>
                         </article>
                     {% endif %}
                 </div>
@@ -55,18 +61,18 @@
                     <div class="column half basecolumn">
                         <section class="highlights">
                             <span class="cat-title larger">
-                            <a href="{{ path('category_url', {'slug': section.category.slug}) }}">{{ section.category.title }}</a></span>
+                            <a href="{{ absolute_url(path('category_url', {'slug': section.category.slug})) }}">{{ section.category.title }}</a></span>
                             {% set top = section.latest_with_image[0:1] %}
                             {% if top|length %}
                             <article itemscope itemtype="http://schema.org/Article">
-                                <a href="{{ path('article_url', {'slug': top[0].slug}) }}" title="{{ top[0].excerpt }}" class="image-link" itemprop="url">
-                                    <img width="350" height="185" src="{{ top[0].image }}" class="image wp-post-image" alt="{{ top[0].title }}" title="{{ top[0].title }}" />
+                                <a href="{{ absolute_url(path('article_url', {'slug': top[0].slug})) }}" title="{{ top[0].excerpt }}" class="image-link" itemprop="url">
+                                    <img width="350" height="185" src="{{ top[0].image|replace({'{size}': '351x185'}) }}" class="image wp-post-image" alt="{{ top[0].title }}" title="{{ top[0].title }}" />
                                 </a>
                                 <div class="meta">
                                     <span class="leftside views">{{ top[0].views|pnum }} بازدید</span>
                                     <time datetime="{{ top[0].createdAt|date('Y-m-d') }}" title="{{ top[0].createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ top[0].createdAt|jdate('l d F Y') }}</time>
                                 </div>
-                                <h2 itemprop="name"><a href="{{ path('article_url', {'slug': top[0].slug}) }}" title="{{ top[0].excerpt }}">{{ top[0].title }}</a></h2>
+                                <h2 itemprop="name"><a href="{{ absolute_url(path('article_url', {'slug': top[0].slug})) }}" title="{{ top[0].excerpt }}">{{ top[0].title }}</a></h2>
                                 <div class="excerpt">
                                     <p>{{ top[0].excerpt }}</p>
                                 </div>
@@ -74,7 +80,7 @@
                             {% endif %}
                             <ul class="block posts-links">
                                 {% for link in section.latest_others %}
-                                <li><a href="{{ path('article_url', {'slug': link.slug}) }}" title="{{ link.excerpt }}">{{ link.title }}</a></li>
+                                <li><a href="{{ absolute_url(path('article_url', {'slug': link.slug})) }}" title="{{ link.excerpt }}">{{ link.title }}</a></li>
                                 {% endfor %}
                             </ul>
                         </section>
@@ -86,10 +92,10 @@
                                 {% for article in section.latest_with_image[1:7] %}
                                 <li>
                                     <span class="leftside views">{{ article.views|pnum }} بازدید</span>
-                                    <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
+                                    <a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.thumbnail }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
                                     <div class="content">
                                         <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
-                                        <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
+                                        <a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
                                     </div>
                                 </li>
                                 {% endfor %}
@@ -103,10 +109,10 @@
                                 {% for article in section.most_viewed[0:7] %}
                                     <li>
                                         <span class="leftside views">{{ article.views|pnum }} بازدید</span>
-                                        <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
+                                        <a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.thumbnail }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
                                         <div class="content">
                                             <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
-                                            <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
+                                            <a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
                                         </div>
                                     </li>
                                 {% endfor %}

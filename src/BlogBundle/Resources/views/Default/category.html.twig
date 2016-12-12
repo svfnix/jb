@@ -9,9 +9,9 @@
         {% for article in latest_list %}
             <div class="column half">
                 <article class="highlights post type-post status-publish format-standard has-post-thumbnail" itemscope="" itemtype="http://schema.org/Article">
-                {% if article.categories %}<span class="cat-title cat-1"><a href="{{ path('category_url', {slug: article.categories[0].slug}) }}">{{ article.categories[0].title }}</a></span>{% endif %}
-                    <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}" class="image-link">
-                        <img src="{{ article.image }}" class="image wp-post-image no-display appear" alt="{{ article.title }}" title="{{ article.title }}" itemprop="image" width="351" height="185">
+                {% if article.categories %}<span class="cat-title cat-1"><a href="{{ absolute_url(path('category_url', {slug: article.categories[0].slug})) }}">{{ article.categories[0].title }}</a></span>{% endif %}
+                    <a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}" class="image-link">
+                        <img src="{{ article.image|replace({'{size}': '351x185'}) }}" class="image wp-post-image no-display appear" alt="{{ article.title }}" title="{{ article.title }}" itemprop="image" width="351" height="185">
                     </a>
 
                     <div class="meta">
@@ -19,7 +19,7 @@
                         <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
                     </div>
 
-                    <h2 itemprop="name"><a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}" itemprop="url">{{ article.title }}</a></h2>
+                    <h2 itemprop="name"><a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}" itemprop="url">{{ article.title }}</a></h2>
                     <div class="excerpt">
                         <p>{{ article.excerpt }}</p>
                     </div>
@@ -34,33 +34,33 @@
 
                         {% if pagination.current > 1 %}
                         <li>
-                            <a class="page-numbers" href="{{ path('category_url', {slug: category.slug, page: pagination.current-1}) }}">«</a>
+                            <a class="page-numbers" href="{{ absolute_url(path('category_url', {slug: category.slug, page: pagination.current-1})) }}">«</a>
                         </li>
                         {% endif %}
 
                         {% if pagination.current > 3 %}
                         <li>
-                            <a class="page-numbers" href="{{ path('category_url', {slug: category.slug, page: 1}) }}">{{ 1|pnum }}</a>
+                            <a class="page-numbers" href="{{ absolute_url(path('category_url', {slug: category.slug, page: 1})) }}">{{ 1|pnum }}</a>
                         </li>
                         <li class="page-numbers dots">...</li>
                         {% endif %}
 
                         {% for i in pagination.start..pagination.end %}
                             <li>
-                                <a class="page-numbers{{ pagination.current == i ? ' current' }}" href="{{ path('category_url', {slug: category.slug, page: i}) }}">{{ i|pnum }}</a>
+                                <a class="page-numbers{{ pagination.current == i ? ' current' }}" href="{{ absolute_url(path('category_url', {slug: category.slug, page: i})) }}">{{ i|pnum }}</a>
                             </li>
                         {% endfor %}
 
                         {% if pagination.current < pagination.max - 2 %}
                             <li class="page-numbers dots">...</li>
                             <li>
-                                <a class="page-numbers" href="{{ path('category_url', {slug: category.slug, page: pagination.max}) }}">{{ pagination.max|pnum }}</a>
+                                <a class="page-numbers" href="{{ absolute_url(path('category_url', {slug: category.slug, page: pagination.max})) }}">{{ pagination.max|pnum }}</a>
                             </li>
                         {% endif %}
 
                         {% if pagination.current < pagination.max %}
                         <li>
-                            <a class="page-numbers" href="{{ path('category_url', {slug: category.slug, page: pagination.current+1}) }}">»</a>
+                            <a class="page-numbers" href="{{ absolute_url(path('category_url', {slug: category.slug, page: pagination.current+1})) }}">»</a>
                         </li>
                         {% endif %}
 
@@ -75,10 +75,10 @@
             {% for article in latest_with_image %}
                 <li>
                     <span class="leftside views">{{ article.views|pnum }} بازدید</span>
-                    <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.image }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
+                    <a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}"><img width="75" height="75" src="{{ article.thumbnail }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ article.title }}" title="{{ article.title }}" /></a>
                     <div class="content">
                         <time datetime="{{ article.createdAt|date('Y-m-d') }}" title="{{ article.createdAt|jdate('l d F Y') }}" itemprop="datePublished">{{ article.createdAt|jdate('l d F Y') }}</time>
-                        <a href="{{ path('article_url', {'slug': article.slug}) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
+                        <a href="{{ absolute_url(path('article_url', {'slug': article.slug})) }}" title="{{ article.excerpt }}">{{ article.title }}</a>
                     </div>
                 </li>
             {% endfor %}

@@ -89,16 +89,31 @@ class AppCommand extends ContainerAwareCommand
 
         $image_service
             ->open($file_name)
-            ->zoomCrop(600, 450)
-            ->save($this->getRoot() . "/web/{$image_path}/IMG-{$uniqid}-600x450.{$ext}");
-        $article->setImage("/{$image_path}/IMG-{$uniqid}-600x450.{$ext}");
+            ->zoomCrop(700, 330)
+            ->save($this->getRoot() . "/web/{$image_path}/IMG-{$uniqid}-700x330.{$ext}");
 
         $image_service
             ->open($file_name)
-            ->zoomCrop(200, 150)
-            ->save($this->getRoot() . "/web/{$image_path}/IMG-{$uniqid}-200x150.{$ext}");
-        $article->setThumbnail("/{$image_path}/IMG-{$uniqid}-200x150.{$ext}");
+            ->zoomCrop(351, 185)
+            ->save($this->getRoot() . "/web/{$image_path}/IMG-{$uniqid}-351x185.{$ext}");
 
+        $image_service
+            ->open($file_name)
+            ->zoomCrop(214, 140)
+            ->save($this->getRoot() . "/web/{$image_path}/IMG-{$uniqid}-214x140.{$ext}");
+
+        $image_service
+            ->open($file_name)
+            ->zoomCrop(168, 137)
+            ->save($this->getRoot() . "/web/{$image_path}/IMG-{$uniqid}-168x137.{$ext}");
+
+        $image_service
+            ->open($file_name)
+            ->zoomCrop(150, 150)
+            ->save($this->getRoot() . "/web/{$image_path}/IMG-{$uniqid}-150x150.{$ext}");
+
+        $article->setImage("/{$image_path}/IMG-{$uniqid}-{size}.{$ext}");
+        $article->setThumbnail("/{$image_path}/IMG-{$uniqid}-150x150.{$ext}");
     }
 
     protected function addCategories($article, $cats=null)

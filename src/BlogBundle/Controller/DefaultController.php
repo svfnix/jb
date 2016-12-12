@@ -50,7 +50,7 @@ class DefaultController extends ControllerWrapper
 
         return $this->render('BlogBundle:Default:index.html.twig', [
             'theme' => $this->theme(),
-            'featured' => $em->getRepository('BlogBundle:Article')->getLatestWithImage(),
+            'featured' => $em->getRepository('BlogBundle:Article')->getLatestWithImage(8),
             'categories' => $categories
         ]);
     }
